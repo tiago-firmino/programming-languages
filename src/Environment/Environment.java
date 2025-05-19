@@ -1,4 +1,7 @@
+package src.Environment;
 import java.util.*;
+
+import src.Exception.InterpreterError;
 
 public class Environment<E> { // Bind <String, Ivalue>
 	Environment<E> anc;

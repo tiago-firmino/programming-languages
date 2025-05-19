@@ -1,3 +1,7 @@
+import src.Environment.Environment;
+import src.Exception.InterpreterError;
+
+package src.IValues;
 class VCell implements IValue {
     private final Environment<IValue> env;
     private final ASTNode expr;
