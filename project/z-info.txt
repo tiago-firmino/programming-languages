@@ -1,0 +1,25 @@
+Seq -> SeqExp(<;> SeqExp)*
+Exp -> Term(+|- Term)*
+
+box not needed for phase1
+
+let (x = N) in M
+let (x = N) ; M
+
+let:
+public class astlet implements ast node 
+decls
+body
+list of bindings
+public ivalue eval environment throws interpreter error
+
+Big Step Environment Semantics for concise | E;N clos(F, lambdax, R) etc
+AstApp(N, M)
+IValue eval (e)
+f = M.eval(e)
+f == clos(F, id, R) --> ASTNode, R = body
+o = M.eval(e)
+new_env = f.evo.beginScope() (extract from closure)
+en.assoc(f.id, o)
+U = f.body.eval(en)
+a ideia é usar o let com varias cenas e a abstração trata de ajudar nisso
