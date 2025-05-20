@@ -1,6 +1,9 @@
 PARSER_BEGIN(Parser)
 
 import java.util.*;
+import ASTNodes.*;
+import Environment.*;
+import Exception.*;
 
 public class Parser {
 }
@@ -242,7 +245,7 @@ ASTNode Fact() :
 					 		(<COMMA> n = <Id>  {/* TBC */ })*
 			<ARROW> <LBRA> e2 = Let() <RBRA> { /* TBC */ }
 		| <PRINT> t=Fact() { t = new ASTPrint(t); }
-		| <PRINTLN> t=Fact() { t = new ASTPrintln(t); }
+		| <PRINTLN> t=Fact() { t = null; }
 		| <LPAR> t=Let() <RPAR> 
 		)
 	 { return t; }

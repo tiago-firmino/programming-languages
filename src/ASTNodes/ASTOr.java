@@ -1,3 +1,9 @@
+package ASTNodes;
+
+import IValues.*;
+import Environment.*;
+import Exception.*;
+
 public class ASTOr implements ASTNode {
     private final ASTNode lhs;
     private final ASTNode rhs;

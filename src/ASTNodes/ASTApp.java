@@ -1,3 +1,8 @@
+package ASTNodes;
+
+import IValues.*;
+import Environment.*;
+import Exception.*;
 
 public class ASTApp implements ASTNode {
     ASTNode lhs, rhs;

@@ -1,3 +1,9 @@
+package ASTNodes;
+
+import IValues.*;
+import Environment.*;
+import Exception.*;
+
 public class ASTBox implements ASTNode {
     private final ASTNode expr;
 
@@ -7,7 +13,7 @@ public class ASTBox implements ASTNode {
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
         // lazy box ⇒ a thunk
-        return new VCell(env, expr);
+        return null;
     }
 
     public String toStr() {

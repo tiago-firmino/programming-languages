@@ -1,49 +1,44 @@
-package src.IValues;
-import java.util.List;
+package IValues;
 
-import src.Environment.Environment;
+import Environment.*;
+import ASTNodes.*;
 
-public class VClosure implements IValue {
-
+public class VClosure implements IValue{
+    
     private final Environment<IValue> env;
-    private final String name;
-    private final List<String> params;
+    private final String param;
     private final ASTNode body;
 
-    public VClosure(Environment<IValue> env, String name, List<String> params, ASTNode body) {
+    public VClosure(Environment<IValue> env, String param, ASTNode body){
         this.env = env;
-        this.name = name;
-        this.params = params;
+        this.param = param;
         this.body = body;
     }
-    
-    public IValue call(IValue arg) throws InterpreterError {
-        Environment<IValue> callEnv = env.beginScope();
-
-        callEnv.assoc(name, this);
-        callEnv.assoc(params.get(0), arg);
-
-        return body.eval(callEnv);
-    }
-
 
     public Environment<IValue> getEnv() {
-        return env;
+        return this.env;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public List<String> getParams() {
-        return params;
+    public String getParam(){
+        return this.param;
     }
 
     public ASTNode getBody() {
-        return body;
+        return this.body;
     }
 
     public String toStr() {
-        return "<closure fn " + name + "(" + String.join(", ", params) + ")>";
+        return String.format(
+            "Closure(env=%s, param=%s, body=%s)",
+            env,
+            param,
+            body
+        );
     }
+
+    public IValue call(IValue arg) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'call'");
+    }
+    
 }

@@ -1,5 +1,7 @@
-package src.Environment;
-class Bind {
+package Environment;
+import ASTNodes.ASTNode;
+
+public class Bind {
 	private final String id;
 	private final ASTNode exp;
 

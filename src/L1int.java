@@ -1,6 +1,6 @@
-import src.Environment.Environment;
-import src.Parser.ParseException;
-import src.Parser.Parser;
+import ASTNodes.*;
+import Environment.*;
+import IValues.*;
 
 public class L1int {
 
@@ -13,14 +13,14 @@ public class L1int {
 		while (true) {
 			try {
 				System.out.print("# ");
-				exp = parser.Start();
+				exp = Parser.Start();
 				if (exp == null)
 					System.exit(0);
 				IValue v = exp.eval(new Environment<IValue>());
 				System.out.println(v.toStr());
 			} catch (ParseException e) {
 				System.out.println("Syntax Error.");
-				parser.ReInit(System.in);
+				Parser.ReInit(System.in);
 
 			} catch (Exception e) {
 				e.printStackTrace();

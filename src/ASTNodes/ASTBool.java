@@ -1,3 +1,9 @@
+package ASTNodes;
+
+import IValues.*;
+import Environment.*;
+import Exception.*;
+
 public class ASTBool implements ASTNode {
     private final boolean value;
 

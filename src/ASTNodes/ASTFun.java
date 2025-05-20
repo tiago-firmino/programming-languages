@@ -1,4 +1,9 @@
+package ASTNodes;
+
 import java.util.List;
+import IValues.*;
+import Environment.*;
+import Exception.*;
 
 public class ASTFun implements ASTNode {
     ASTNode body;
@@ -9,11 +14,12 @@ public class ASTFun implements ASTNode {
 
         Environment<IValue> funEnv = env.beginScope();
 
-        VClosure closure = new VClosure(funEnv, id, args, body);
+        //VClosure closure = new VClosure(funEnv, id, args, body);
 
-        funEnv.assoc(id, closure);
+        //funEnv.assoc(id, closure);
 
-        return closure;
+        //return closure;
+        return null;
     }
 
     public ASTFun(String id, List<String> args, ASTNode b) {

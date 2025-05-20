@@ -1,3 +1,9 @@
+package ASTNodes;
+
+import IValues.*;
+import Environment.*;
+import Exception.*;
+
 public class ASTIf implements ASTNode {
     private final ASTNode cond, thenBr, elseBr;
 

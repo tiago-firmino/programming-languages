@@ -23,3 +23,6 @@ new_env = f.evo.beginScope() (extract from closure)
 en.assoc(f.id, o)
 U = f.body.eval(en)
 a ideia é usar o let com varias cenas e a abstração trata de ajudar nisso
+
+
+let x = 1; let x = 2; 10;; dá erro

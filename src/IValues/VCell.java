@@ -1,37 +1,26 @@
-import src.Environment.Environment;
-import src.Exception.InterpreterError;
+package IValues;
 
-package src.IValues;
-class VCell implements IValue {
-    private final Environment<IValue> env;
-    private final ASTNode expr;
-    private IValue cached;
-    private boolean evaluated;
+public class VCell implements IValue {
+    private IValue v;
 
-    public VCell(Environment<IValue> env, ASTNode expr) {
-        this.env = env;
-        this.expr = expr;
-        this.evaluated = false;
+    public VCell(IValue v0) {
+        this.v = v0;
     }
 
-    public Environment<IValue> getEnv() {
-        return env;
+    public IValue getValue() {
+        return v;
     }
-    public ASTNode getExpr() {
-        return expr;
-    }
-    public boolean isEvaluated() {
-        return evaluated;
-    }
-    public IValue get() throws InterpreterError {
-        if (!evaluated) {
-            cached = expr.eval(env);
-            evaluated = true;
-        }
-        return cached;
+
+    public void setValue(IValue v0) {
+        this.v = v0;
     }
 
     public String toStr() {
-        return evaluated ? cached.toStr() : "<cell>";
+        return "VCell(" + v.toString() + ")";
+    }
+
+    public IValue get() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
 }

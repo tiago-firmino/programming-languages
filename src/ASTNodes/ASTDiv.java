@@ -1,3 +1,9 @@
+package ASTNodes;
+
+import IValues.*;
+import Environment.*;
+import Exception.*;
+
 public class ASTDiv implements ASTNode {
 
 	ASTNode lhs, rhs;

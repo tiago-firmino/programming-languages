@@ -1,3 +1,8 @@
+package ASTNodes;
+import IValues.*;
+import Environment.*;
+import Exception.*;
+
 public class ASTAnd implements ASTNode {
     private final ASTNode lhs;
     private final ASTNode rhs;

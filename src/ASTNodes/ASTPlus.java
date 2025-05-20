@@ -1,3 +1,9 @@
+package ASTNodes;
+
+import IValues.*;
+import Environment.*;
+import Exception.*;
+
 public class ASTPlus implements ASTNode {
 
 	ASTNode lhs, rhs;

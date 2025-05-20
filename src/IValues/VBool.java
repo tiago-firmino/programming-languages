@@ -1,9 +1,9 @@
-package src.IValues;
+package IValues;
 public class VBool implements IValue{
 
     boolean v;
 
-    VBool(boolean v0) {
+    public VBool(boolean v0) {
         v = v0;
     }
 
@@ -23,7 +23,7 @@ public class VBool implements IValue{
         v = (v0.getval() != 0);
     }
     
-    int getval() {
+    public int getval() {
         return v ? 1 : 0;
     }
 

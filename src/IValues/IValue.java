@@ -1,4 +1,4 @@
-package src.IValues;
-interface IValue { /* represents values */
+package IValues;
+public interface IValue { /* represents values */
 	String toStr();
 }

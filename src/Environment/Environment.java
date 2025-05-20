@@ -1,13 +1,14 @@
-package src.Environment;
+package Environment;
+
 import java.util.*;
 
-import src.Exception.InterpreterError;
+import Exception.*;
 
 public class Environment<E> { // Bind <String, Ivalue>
 	Environment<E> anc;
 	Map<String, E> bindings;
 
-	Environment() {
+	public Environment() {
 		anc = null;
 		bindings = new HashMap<String, E>();
 	}
@@ -17,7 +18,7 @@ public class Environment<E> { // Bind <String, Ivalue>
 		bindings = new HashMap<String, E>();
 	}
 
-	Environment<E> beginScope() {
+	public Environment<E> beginScope() {
 		return new Environment<E>(this);
 	}
 
@@ -25,7 +26,7 @@ public class Environment<E> { // Bind <String, Ivalue>
 		return anc;
 	}
 
-	void assoc(String id, E bind) throws InterpreterError {
+	public void assoc(String id, E bind) throws InterpreterError {
 		if (bindings.containsKey(id)) {
 			throw new InterpreterError("Identifier " + id + " already exists.");
 		} else {
@@ -43,7 +44,7 @@ public class Environment<E> { // Bind <String, Ivalue>
 		}
 	}
 
-	E find(String id) throws InterpreterError {
+	public E find(String id) throws InterpreterError {
 
 		if (bindings.containsKey(id)) {
 			return bindings.get(id);

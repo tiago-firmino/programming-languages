@@ -1,7 +1,13 @@
-class ASTInt implements ASTNode {
+package ASTNodes;
+
+import IValues.*;
+import Environment.*;
+import Exception.*;
+
+public class ASTInt implements ASTNode {
     int v;
 
-    ASTInt(int v0) {
+    public ASTInt(int v0) {
         v = v0;
     }
 
