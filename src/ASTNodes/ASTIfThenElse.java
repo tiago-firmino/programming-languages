@@ -4,10 +4,10 @@ import IValues.*;
 import Environment.*;
 import Exception.*;
 
-public class ASTIf implements ASTNode {
+public class ASTIfThenElse implements ASTNode {
     private final ASTNode cond, thenBr, elseBr;
 
-    public ASTIf(ASTNode cond, ASTNode thenBr, ASTNode elseBr) {
+    public ASTIfThenElse(ASTNode cond, ASTNode thenBr, ASTNode elseBr) {
         this.cond   = cond;
         this.thenBr = thenBr;
         this.elseBr = elseBr;

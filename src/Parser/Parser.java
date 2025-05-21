@@ -356,7 +356,7 @@ public class Parser implements ParserConstants {
       jj_consume_token(LBRA);
       e2 = Let();
       jj_consume_token(RBRA);
-                                                                                     t = new ASTIf(t, e1, e2);
+                                                                                     t = new ASTIfThenElse(t, e1, e2);
       break;
     case WHILE:
       jj_consume_token(WHILE);
@@ -393,7 +393,7 @@ public class Parser implements ParserConstants {
     case PRINT:
       jj_consume_token(PRINT);
       t = Fact();
-                                     t = new ASTPrint(t);
+                                     t = new ASTPrint(t, false);
       break;
     case PRINTLN:
       jj_consume_token(PRINTLN);
