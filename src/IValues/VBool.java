@@ -6,6 +6,18 @@ public class VBool implements IValue{
     public VBool(boolean v0) {
         v = v0;
     }
+    
+    public boolean getval() {
+        return v;
+    }
+
+    public boolean getBool() {
+        return v;
+    }
+
+    public String toStr() {
+        return Boolean.toString(v);
+    }
 
     VBool(int v0) {
         v = (v0 != 0);
@@ -21,17 +33,5 @@ public class VBool implements IValue{
 
     VBool(VInt v0) {
         v = (v0.getval() != 0);
-    }
-    
-    public int getval() {
-        return v ? 1 : 0;
-    }
-
-    public String toStr() {
-        return Boolean.toString(v);
-    }
-
-    public boolean getValue() {
-        return v;
     }
 }

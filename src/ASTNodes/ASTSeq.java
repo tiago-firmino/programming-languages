@@ -13,7 +13,7 @@ public class ASTSeq implements ASTNode {
     }
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
-        first.eval(env);
+        first.eval(env); // maybe missing ival second
         return second.eval(env);
     }
 

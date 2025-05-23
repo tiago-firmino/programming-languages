@@ -5,19 +5,26 @@ import Environment.*;
 import Exception.*;
 
 public class ASTApp implements ASTNode {
-    ASTNode lhs, rhs;
+    ASTNode func, arg;
     public IValue eval(Environment<IValue> env) throws InterpreterError {
-        IValue arg = rhs.eval(env);
-        IValue fun = lhs.eval(env);
-        if (fun instanceof VClosure) {
-            VClosure clos = (VClosure) fun;
-            return clos.call(arg);
-        } else throw new InterpreterError("app: closure expected, found "+fun);
+        IValue fValue = func.eval(env);
+
+        if (!(fValue instanceof VClosure)) {
+            throw new InterpreterError("app: closure expected, found " + fValue);
+        }
+
+        IValue argValue = arg.eval(env);
+        VClosure clos = (VClosure) fValue;
+        
+        Environment<IValue> newEnv = clos.getEnv().beginScope();
+        newEnv.assoc(clos.getParam(), argValue);
+        IValue appValue = clos.getBody().eval(newEnv);
+        return appValue;
     }
 
-    public ASTApp(ASTNode lhs, ASTNode rhs) {
-        this.lhs = lhs;
-        this.rhs = rhs;
+    public ASTApp(ASTNode func, ASTNode arg) {
+        this.func = func;
+        this.arg = arg;
     }
     
 }

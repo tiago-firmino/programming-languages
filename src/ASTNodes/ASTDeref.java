@@ -14,11 +14,10 @@ public class ASTDeref implements ASTNode {
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
         IValue v = expr.eval(env);
-        if (v instanceof VCell) {
-            return ((VCell) v).get();
-        } else {
-            throw new InterpreterError("deref: cell or ref expected, found " + v);
-        }
+        if (!(v instanceof VCell))
+            throw new InterpreterError("deref: cell or ref expected, found " + v); 
+        else
+            return ((VCell) v).getval();
     }
 
     public String toStr() {

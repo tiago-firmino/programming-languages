@@ -14,15 +14,16 @@ public class ASTIfThenElse implements ASTNode {
     }
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
-        IValue v = cond.eval(env);
-        if (((VBool) v).getValue()) {
-            return thenBr.eval(env);
-        } else {
-            return elseBr.eval(env);
-        }
-    }
+        IValue condVal = cond.eval(env);
 
-    public String toStr() {
-        return "if " + cond + " then " + thenBr + " else " + elseBr;
+        if (!(condVal instanceof VBool)) {
+            throw new InterpreterError("Condition must be a boolean: " + condVal.toStr());
+        } else {
+            if (((VBool) condVal).getval()) {
+                return thenBr.eval(env);
+            } else {
+                return elseBr.eval(env);
+            }
+        }
     }
 }

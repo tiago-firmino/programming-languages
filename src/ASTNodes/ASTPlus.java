@@ -10,6 +10,7 @@ public class ASTPlus implements ASTNode {
 
 	public IValue eval(Environment<IValue> e) throws InterpreterError {
 		IValue v1 = lhs.eval(e);
+		
 		if (v1 instanceof VInt) {
 			IValue v2 = rhs.eval(e);
 			if (v2 instanceof VInt) {

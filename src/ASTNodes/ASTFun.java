@@ -1,30 +1,23 @@
 package ASTNodes;
 
-import java.util.List;
 import IValues.*;
 import Environment.*;
 import Exception.*;
 
 public class ASTFun implements ASTNode {
-    ASTNode body;
     String id;
-    List<String> args;
+    ASTNode body;
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
-
-        Environment<IValue> funEnv = env.beginScope();
-
-        //VClosure closure = new VClosure(funEnv, id, args, body);
-
-        //funEnv.assoc(id, closure);
-
-        //return closure;
-        return null;
+        return new VClosure(env, id, body);
     }
 
-    public ASTFun(String id, List<String> args, ASTNode b) {
+    public ASTFun(String id, ASTNode b) {
         this.id = id;
-        this.args = args;
-        body = b;
+        this.body = b;
     }
+
+    public void setBody(ASTNode b) {
+        this.body = b;
+    }   
 }

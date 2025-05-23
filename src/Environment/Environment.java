@@ -28,7 +28,7 @@ public class Environment<E> { // Bind <String, Ivalue>
 
 	public void assoc(String id, E bind) throws InterpreterError {
 		if (bindings.containsKey(id)) {
-			throw new InterpreterError("Identifier " + id + " already exists.");
+			throw new InterpreterError("Identifier for variable" + id + " already exists in this scope.");
 		} else {
 			bindings.put(id, bind);
 		}

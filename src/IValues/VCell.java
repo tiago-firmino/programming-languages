@@ -7,7 +7,7 @@ public class VCell implements IValue {
         this.v = v0;
     }
 
-    public IValue getValue() {
+    public IValue getval() {
         return v;
     }
 
@@ -17,10 +17,5 @@ public class VCell implements IValue {
 
     public String toStr() {
         return "VCell(" + v.toString() + ")";
-    }
-
-    public IValue get() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
 }

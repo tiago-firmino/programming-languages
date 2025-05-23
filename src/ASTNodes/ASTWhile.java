@@ -15,14 +15,21 @@ public class ASTWhile implements ASTNode {
     }
 
     public IValue eval(Environment<IValue> e) throws InterpreterError {
-        while (condition.eval(e) instanceof VBool && ((VBool) condition.eval(e)).getValue()) {
-            body.eval(e);
+        while (true) {
+            IValue condVal = condition.eval(e);
+
+            if (!(condVal instanceof VBool)) {
+                throw new InterpreterError("illegal types to while condition" + condVal.toStr());
+            } else {
+                if (!((VBool) condVal).getval()) {
+                    break;
+                } else {
+                    body.eval(e);
+                }
+            }
+
         }
         return null;
-    }
-
-    public String toStr() {
-        return "while " + condition.toString() + " do " + body.toString();
     }
 
     public ASTNode getCondition() {

@@ -23,19 +23,17 @@ TOKEN :
 
 	< LET : "let" >
 	|
-	< IN : "in" >
-	|
 	< TRUE: "true" >
 	|
 	< FALSE: "false" >
 	|
 	< PLUS : "+" >
 	|
-	< MINUS : "-">
+	< MINUS : "-" >
 	|
-	< STAR : "*">
+	< STAR : "*" >
 	|
-	< DIV : "/">
+	< DIV : "/" >
 	|
 	< LPAR : "(" >
 	|
@@ -77,17 +75,11 @@ TOKEN :
 	|
 	< BOX : "box" >
 	|
-	< MATCH : "match" >
-	|
 	< IF : "if" >
-	|
-	< THEN : "then" >
 	|
 	< ELSE : "else" >
 	|
 	< WHILE : "while" >
-	|
-	< DO : "do" >
 	|
 	< END : "end" >
 	|
@@ -97,9 +89,11 @@ TOKEN :
 	|
 	< FN : "fn" >
 	|
-	< ARROW : "=>">
+	< ARROW : "=>" >
 	|
-	< APP : "app" >
+	< LIST : "::" >
+	|
+	< LAZY : "::?" >
 	|
 	< String: "\"" ( (~["\"","\\"]) | ("\\" ( ["n","t","b","r","f","\\","\""] ) ) )* "\"" >
 	|
@@ -151,7 +145,7 @@ ASTNode SeqExp() :
 {
 		 t1 = BA() ( ( op=<ASSIGN> ) t2 = BA() 
  		 {
-		 /* missing AST build */
+			t1 = new ASTAssign(t1, t2);
 		 } 
 		)*
 		 { return t1; }  
@@ -163,7 +157,7 @@ ASTNode BA() :
 {
 		 t1 = BM() ( ( op=<OR> ) t2 = BM() 
  		 {
-		 /* missing AST build */
+			t1 = new ASTOr(t1, t2);
 		 } 
 		)*
 		 { return t1; } 
@@ -175,7 +169,7 @@ ASTNode BM() :
 {
 		 t1 = Rel() ( ( op=<AND> ) t2 = Rel() 
  		 {
-		 /* missing AST build */
+			t1 = new ASTAnd(t1, t2);
  		 } 
 		)*
 		 { return t1; } 
@@ -187,10 +181,24 @@ ASTNode Rel() :
 	ASTNode t1, t2;}
 {
 		 t1 = Exp() ( ( op=<EQ> | op=<GT> | op=<LT> | op=<GTEQ> | op=<LTEQ> | op=<DIF>) t2 = Exp() 
-		 				{
-		 /* missing AST build */
+		 	 {  
+				switch(op.kind) {
+					case EQ:
+						t1 = new ASTEQ(t1, t2);
+					case GT:
+						t1 = new ASTGT(t1, t2);
+					case GTEQ:
+						t1 = new ASTGTEQ(t1, t2);
+					case LT:
+						t1 = new ASTLT(t1, t2);
+					case LTEQ:
+						t1 = new ASTLTEQ(t1, t2);
+					case DIF:
+						t1 = new ASTDif(t1, t2);
+			 	}
+
 			 } 
-		)?
+		    )?
 		 { return t1; } 
 }
 
@@ -201,8 +209,8 @@ ASTNode Exp() :
 {
 		 t1=Term() ( ( op=<PLUS> | op=<MINUS> ) t2=Term() 
 								 { if (op.kind == PLUS) 
-												 t1 = new ASTPlus(t1,t2);
-									 else  t1 = new ASTSub(t1,t2);
+										  t1 = new ASTPlus(t1,t2);
+									else  t1 = new ASTSub(t1,t2);
 								 } 
 							 ) *
 		 { return t1; } 
@@ -213,11 +221,11 @@ ASTNode Term() :
 	ASTNode t1, t2;}
 {
 		 t1 = Fact() (
-		 			 op=<STAR> t2 = Fact()   { t1 = new ASTMult(t1,t2); }
+		 op=<STAR> t2 = Fact()   { t1 = new ASTMult(t1,t2); }
 		 |
 		 op=<DIV> t2 = Fact()  { t1 = new ASTDiv(t1,t2); }
 		 |
-		 op = <LPAR> t2 = Exp () <RPAR>  { /* TBC */ } 
+		 op = <LPAR> t2 = Exp () <RPAR>  { t1 = new ASTApp(t1, t2); } 
 		)*
 		 { return t1; } 
 }
@@ -231,21 +239,25 @@ ASTNode Fact() :
 }
 {
 	 (
-			n=<Num> { t = new ASTInt(Integer.parseInt(n.image)); } 
-		| n=<TRUE> { t = new ASTBool(true); }
-		| n=<FALSE> {  t = new ASTBool(false); }
+		  n=<Num> { t = new ASTInt(Integer.parseInt(n.image)); } 
+		| n=<TRUE> { t = new ASTBool(Boolean.parseBoolean(n.image)); }
+		| n=<FALSE> {  t = new ASTBool(Boolean.parseBoolean(n.image)); }
 		| n=<Id> { t = new ASTId(n.image); } 
 		| <BOX> t=Fact() { t = new ASTBox(t); }
 		| <STAR> t=Fact() { t = new ASTDeref(t); }
 		| <MINUS> t=Fact() { t = new ASTNeg(t); }
 		| <NOT> t=Fact() { t = new ASTNot(t); }
 		| <IF> t=BA() <LBRA> e1=Let() <RBRA> <ELSE> <LBRA> e2=Let() <RBRA> { t = new ASTIfThenElse(t, e1, e2); }
-		| <WHILE> t=BA() <LBRA> body=Let() <RBRA> { /* TBC */ t = null; }
-		| <FN> n=<Id> { t = null; }
-					 		(<COMMA> n = <Id>  {/* TBC */ })*
-			<ARROW> <LBRA> e2 = Let() <RBRA> { /* TBC */ }
+		| <WHILE> t=BA() <LBRA> body=Let() <RBRA> { t = new ASTWhile(t, body); }
+		| <FN> n=<Id> { t = new ASTFun(n.image, null); e1 = t; }
+					 		(<COMMA> n = <Id>  { e2 = new ASTFun(n.image, null);
+							 ((ASTFun) e1).setBody(e2);
+							 e1 = e2; }
+							)*
+						<ARROW> <LBRA> e2 = Let() <RBRA> { ((ASTFun) e1).setBody(e2); }
+
 		| <PRINT> t=Fact() { t = new ASTPrint(t, false); }
-		| <PRINTLN> t=Fact() { t = null; }
+		| <PRINTLN> t=Fact() { t = new ASTPrint(t, true); }
 		| <LPAR> t=Let() <RPAR> 
 		)
 	 { return t; }

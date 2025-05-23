@@ -29,16 +29,11 @@ public class VClosure implements IValue{
 
     public String toStr() {
         return String.format(
-            "Closure(env=%s, param=%s, body=%s)",
+            "Clos(env=%s, param=%s, body=%s)",
             env,
             param,
             body
         );
-    }
-
-    public IValue call(IValue arg) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'call'");
     }
     
 }

@@ -15,18 +15,12 @@ public class ASTOr implements ASTNode {
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
         IValue left = lhs.eval(env);
-        if (left instanceof VBool) {
-            if (((VBool) left).getValue()) {
-                return left;
-            }
-        } else {
-            throw new InterpreterError("|| operator: boolean expected, " + left + " found.");
-        }
-        return rhs.eval(env);
-    }
+        IValue right = rhs.eval(env);
 
-    public String toStr() {
-        return "(" + lhs + " || " + rhs + ")";
+        if (left instanceof VBool && right instanceof VBool) {
+            return new VBool(((VBool) left).getval() || ((VBool) right).getval());
+        } else {
+            throw new InterpreterError("illegal types for || operator");
+        }
     }
-    
 }

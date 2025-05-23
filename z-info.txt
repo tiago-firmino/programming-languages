@@ -26,3 +26,15 @@ a ideia é usar o let com varias cenas e a abstração trata de ajudar nisso
 
 
 let x = 1; let x = 2; 10;; dá erro
+
+N :=
+List :=
+    | nil (caso base)
+    | cons(N, List)
+
+cons(-0-, nil)
+cons(-0-, cons(n, nil))
+
+
+
+

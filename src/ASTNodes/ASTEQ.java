@@ -8,7 +8,6 @@ public class ASTEQ implements ASTNode {
 
     private ASTNode left;
     private ASTNode right;
-    private String op;
 
     public ASTEQ(ASTNode left, ASTNode right) {
         this.left = left;
@@ -18,6 +17,7 @@ public class ASTEQ implements ASTNode {
     public IValue eval(Environment<IValue> env) throws InterpreterError {
         IValue leftValue = left.eval(env);
         IValue rightValue = right.eval(env);
+
         if (leftValue instanceof VInt && rightValue instanceof VInt) {
             return new VBool(((VInt) leftValue).getval() == ((VInt) rightValue).getval());
         } else if (leftValue instanceof VBool && rightValue instanceof VBool) {
@@ -25,9 +25,5 @@ public class ASTEQ implements ASTNode {
         } else {
             throw new InterpreterError("== operator: integer or boolean expected, " + leftValue + " and " + rightValue + " found.");
         }
-    }
-
-    public String getOp() {
-        return op;
     }
 }
