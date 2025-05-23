@@ -75,6 +75,8 @@ TOKEN :
 	|
 	< BOX : "box" >
 	|
+	< MATCH : "match" >
+	|
 	< IF : "if" >
 	|
 	< ELSE : "else" >
@@ -90,6 +92,8 @@ TOKEN :
 	< FN : "fn" >
 	|
 	< ARROW : "=>" >
+	|
+	< DEREF : "!" >
 	|
 	< LIST : "::" >
 	|
@@ -252,7 +256,7 @@ ASTNode Fact() :
 		| n=<FALSE> {  t = new ASTBool(Boolean.parseBoolean(n.image)); }
 		| n=<Id> { t = new ASTId(n.image); } 
 		| <BOX> t=Fact() { t = new ASTBox(t); }
-		| <STAR> t=Fact() { t = new ASTDeref(t); }
+		| <DEREF> t=Fact() { t = new ASTDeref(t); }
 		| <MINUS> t=Fact() { t = new ASTNeg(t); }
 		| <NOT> t=Fact() { t = new ASTNot(t); }
 		| <IF> t=BA() <LBRA> e1=Let() <RBRA> <ELSE> <LBRA> e2=Let() <RBRA> { t = new ASTIfThenElse(t, e1, e2); }

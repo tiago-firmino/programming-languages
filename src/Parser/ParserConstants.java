@@ -63,31 +63,35 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int BOX = 31;
   /** RegularExpression Id. */
-  int IF = 32;
+  int MATCH = 32;
   /** RegularExpression Id. */
-  int ELSE = 33;
+  int IF = 33;
   /** RegularExpression Id. */
-  int WHILE = 34;
+  int ELSE = 34;
   /** RegularExpression Id. */
-  int END = 35;
+  int WHILE = 35;
   /** RegularExpression Id. */
-  int PRINT = 36;
+  int END = 36;
   /** RegularExpression Id. */
-  int PRINTLN = 37;
+  int PRINT = 37;
   /** RegularExpression Id. */
-  int FN = 38;
+  int PRINTLN = 38;
   /** RegularExpression Id. */
-  int ARROW = 39;
+  int FN = 39;
   /** RegularExpression Id. */
-  int LIST = 40;
+  int ARROW = 40;
   /** RegularExpression Id. */
-  int LAZY = 41;
+  int DEREF = 41;
   /** RegularExpression Id. */
-  int String = 42;
+  int LIST = 42;
   /** RegularExpression Id. */
-  int Id = 43;
+  int LAZY = 43;
   /** RegularExpression Id. */
-  int Num = 44;
+  int String = 44;
+  /** RegularExpression Id. */
+  int Id = 45;
+  /** RegularExpression Id. */
+  int Num = 46;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -126,6 +130,7 @@ public interface ParserConstants {
     "\"~\"",
     "\":=\"",
     "\"box\"",
+    "\"match\"",
     "\"if\"",
     "\"else\"",
     "\"while\"",
@@ -134,6 +139,7 @@ public interface ParserConstants {
     "\"println\"",
     "\"fn\"",
     "\"=>\"",
+    "\"!\"",
     "\"::\"",
     "\"::?\"",
     "<String>",

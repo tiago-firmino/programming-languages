@@ -1,5 +1,6 @@
+# testsL0
 
-/* tests for L0 step 1 */
+/*tests for L0 step 1*/
 
 let x = 1;
   (x + 1);;
@@ -22,7 +23,7 @@ let z = (let z = 2*y;  z*z);
 b || ~ (z < 0)
 ;;
 
-/* tests for L0 step 2 */
+/*tests for L0 step 2*/
 
 let x = 1;
 let f = fn y => { x + y };
@@ -30,10 +31,10 @@ let x = 4;
 (x + f (2))
 ;;
 
-let x=1 ;			 
+let x=1 ;
 let f = fn y => { y+x } ;
 let g = fn x => { x+f(x) };
-g(2) 
+g(2)
 ;;
 
 let f = fn g,z => { g (z) };
@@ -42,20 +43,19 @@ f (fn z => { z*2 }) (7)
 
 (fn z => { fn t => { z*t }}) (7) (7);;
 
-
 (fn z,t => { z*t }) (7) (7);;
 
-let x=1 ;			 
+let x=1 ;
 let f = fn y => {
            let k = x*2;
-  	   y+x*k
+       y+x*k
         };
 let g = fn x, u =>
            { u(x) + f(x) };
-g  (f(3)) (f) 
+g  (f(3)) (f)
 ;;
 
-let comp = fn f, g => 
+let comp = fn f, g =>
         { fn x =>
         { f (g (x)) }};
 let inc = fn x => { x + 1};
@@ -63,8 +63,7 @@ let dup = fn x => { 2 * x};
 let c2 = comp (inc) (dup);
 c2 (99);;
 
-
-let reduce = 
+let reduce =
 fn g, b, k => {
     if (k == 0) { b }
     else {
@@ -75,7 +74,7 @@ let fact = reduce (fn n, p => { n*p }) (1) ;
 fact (10)
 ;;
 
-let reduce = 
+let reduce =
 fn g, b, k => {
     if (k == 0) { b }
     else {
@@ -90,5 +89,3 @@ let k = -1;
 let om = fn f => { f (k)};
 om (fn k => {k*k})
 ;;
-
-

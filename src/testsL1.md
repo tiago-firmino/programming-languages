@@ -1,3 +1,5 @@
+# testsL1
+
 let m = box(9);
 let v = !m;
 v+1;;
@@ -43,6 +45,7 @@ while (!m>0) {
 !S
 ;;
 
+/*error*/
 let L = 1000;
 let m = box(L);
 let fnxt = box(1);
@@ -55,7 +58,6 @@ while (!m>0) {
 !fp
 ;;
 
-
 let sigfpe = box ( fn x=>{x} );
 let setfpe = fn h => { sigfpe := h };
 let div = fn n,m => {
@@ -66,7 +68,7 @@ setfpe (fn v => { -1 });
 div (2) (0)
 ;;
 
-/* some functions to encode mutable pairs */
+/*some functions to encode mutable pairs*/
 let knot = box (fn x => {x});
 let fact = fn n => {
       if (n==0) { 1}
@@ -75,9 +77,9 @@ knot := fact;
 fact (6)
 ;;
 
-/* some functions to encode mutable pairs */
+/*some functions to encode mutable pairs*/
 let mkpair =
-    fn a,b => { 
+    fn a,b => {
         let l = box(a);
         let r = box(b);
         fn f => { f (l) (r) }
@@ -93,7 +95,7 @@ setsnd (x) (20);
 ;;
 
 let mkpair =
-    fn a,b => { 
+    fn a,b => {
         let l = box(a);
         let r = box(b);
         fn f => { f (l) (r) }
@@ -105,4 +107,3 @@ let setsnd = fn p,v => { p (fn a,b => {b := v})};
 let mp = mkpair(2)(3);
 setfst(mp) (getfst(mp)+getsnd(mp));
 getsnd(mp)* (getfst(mp));;
-
