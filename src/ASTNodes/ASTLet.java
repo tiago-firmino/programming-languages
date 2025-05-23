@@ -10,8 +10,9 @@ public class ASTLet implements ASTNode {
 	ASTNode body;
 
 	public IValue eval(Environment<IValue> e) throws InterpreterError {
-		Environment<IValue> env = e.beginScope();
+		Environment<IValue> env = e;
 		for (Bind b : decls) {
+			env = env.beginScope();
 			String id = b.getId();
 			ASTNode exp = b.getExp();
 		  	env.assoc(id, exp.eval(env));

@@ -4,7 +4,7 @@
 let x = 1;
   (x + 1);;
 
-(let x = 1; (x + 1)) * (let x = 2; (x + 3))
+(let x = 1; (x + 1)) * (let x = 2; (x + 3));;
 
 let x = 1;
   let y = 2;
@@ -61,7 +61,7 @@ let comp = fn f, g =>
 let inc = fn x => { x + 1};
 let dup = fn x => { 2 * x};
 let c2 = comp (inc) (dup);
-c2 (99)
+c2 (99);;
 
 
 let reduce = 

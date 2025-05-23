@@ -218,16 +218,24 @@ public class Parser implements ParserConstants {
                                 switch(op.kind) {
                                         case EQ:
                                                 t1 = new ASTEQ(t1, t2);
+                                                break;
                                         case GT:
                                                 t1 = new ASTGT(t1, t2);
+                                                break;
                                         case GTEQ:
                                                 t1 = new ASTGTEQ(t1, t2);
+                                                break;
                                         case LT:
                                                 t1 = new ASTLT(t1, t2);
+                                                break;
                                         case LTEQ:
                                                 t1 = new ASTLTEQ(t1, t2);
+                                                break;
                                         case DIF:
                                                 t1 = new ASTDif(t1, t2);
+                                                break;
+                                        default:
+                                        {if (true) throw new ParseException("Unknown relational operator: " + op);}
                                 }
       break;
     default:

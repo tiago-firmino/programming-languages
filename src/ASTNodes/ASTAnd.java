@@ -14,17 +14,13 @@ public class ASTAnd implements ASTNode {
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
         IValue left = lhs.eval(env);
-        if (!(left instanceof VBool)) {
-            throw new InterpreterError("&& operator: boolean expected, " + left + " found.");
+        IValue right = rhs.eval(env);
+
+        if (left instanceof VBool && right instanceof VBool) {
+            return new VBool(((VBool) left).getval() && ((VBool) right).getval());
+        } else {
+            throw new InterpreterError("illegal types for && operator");
         }
-        if (((VBool) left).getval()) {
-            IValue right = rhs.eval(env);
-            if (!(right instanceof VBool)) {
-                throw new InterpreterError("&& operator: boolean expected, " + right + " found.");
-            }
-            return new VBool(true && ((VBool) right).getval());
-        }
-        return new VBool(false);
     }
 
 
