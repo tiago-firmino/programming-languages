@@ -5,10 +5,8 @@ import IValues.*;
 import Exception.*;
 
 public class ASTGTEQ implements ASTNode {
+    private final ASTNode left, right;
     
-    private final ASTNode left;
-    private final ASTNode right;
-
     public ASTGTEQ(ASTNode left, ASTNode right) {
         this.left = left;
         this.right = right;

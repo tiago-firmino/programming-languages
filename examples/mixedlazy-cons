@@ -1,0 +1,10 @@
+let regularlist = 1::2::3::nil;
+let lazylist = 10 :? 20 :? 30 :: nil;
+match regularlist {
+  nil -> println(0)
+| h::t -> println(h)
+};
+match lazylist {
+  nil -> println(0)
+| h::t -> println(h)
+};;

@@ -5,8 +5,12 @@ import Environment.*;
 import Exception.*;
 
 public class ASTPlus implements ASTNode {
-
 	ASTNode lhs, rhs;
+
+	public ASTPlus(ASTNode l, ASTNode r) {
+		lhs = l;
+		rhs = r;
+	}
 
 	public IValue eval(Environment<IValue> e) throws InterpreterError {
 		IValue v1 = lhs.eval(e);
@@ -23,9 +27,5 @@ public class ASTPlus implements ASTNode {
 		throw new InterpreterError("illegal types to + operator");
 	}
 
-	public ASTPlus(ASTNode l, ASTNode r) {
-		lhs = l;
-		rhs = r;
-	}
 
 }

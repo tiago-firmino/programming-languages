@@ -1,0 +1,1 @@
+let mylist = 1::2::3::nil; match mylist { nil -> println(0) | head::tail -> println(head); println(1) };;

@@ -1,0 +1,11 @@
+let a = 10;
+let b = 5;
+println(a + b);
+println(a - b);
+println(a * b);
+println(a / b);
+println(a > b);
+println(a == b);
+println(true && false);
+println(true || false);
+println(~true);;

@@ -5,9 +5,7 @@ import Environment.*;
 import Exception.*;
 
 public class ASTWhile implements ASTNode {
-
-    private ASTNode condition;
-    private ASTNode body;
+    private ASTNode condition, body;
 
     public ASTWhile(ASTNode condition, ASTNode body) {
         this.condition = condition;

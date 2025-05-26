@@ -1,7 +1,6 @@
 package IValues;
 
 public class VBool implements IValue{
-
     boolean v;
 
     public VBool(boolean v0) {

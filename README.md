@@ -32,6 +32,8 @@ Choose a file to run from the *tests* directory. Results are shown after each te
 ./makeit.sh <filename>
 ```
 
+Example tests should be ran in Hands-on mode by copying them to the terminal after ./makeit.sh execution.
+
 ## Limitations
 
 - It is a requirement of the interpreter for functions to declare at least one parameter:

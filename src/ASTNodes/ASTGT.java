@@ -5,9 +5,7 @@ import IValues.*;
 import Exception.*;
 
 public class ASTGT implements ASTNode {
-
-    private final ASTNode left;
-    private final ASTNode right;
+    private final ASTNode left, right;
 
     public ASTGT(ASTNode left, ASTNode right) {
         this.left = left;

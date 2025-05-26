@@ -5,8 +5,7 @@ import Environment.*;
 import Exception.*;
 
 public class ASTOr implements ASTNode {
-    private final ASTNode lhs;
-    private final ASTNode rhs;
+    private final ASTNode lhs, rhs;
 
     public ASTOr(ASTNode lhs, ASTNode rhs) {
         this.lhs = lhs;

@@ -4,8 +4,7 @@ import Environment.*;
 import Exception.*;
 
 public class ASTAnd implements ASTNode {
-    private final ASTNode lhs;
-    private final ASTNode rhs;
+    private final ASTNode lhs, rhs;
 
     public ASTAnd(ASTNode lhs, ASTNode rhs) {
         this.lhs = lhs;
@@ -21,11 +20,5 @@ public class ASTAnd implements ASTNode {
         } else {
             throw new InterpreterError("illegal types for && operator");
         }
-    }
-
-
-    public String toStr() {
-        return "(" + lhs + " && " + rhs + ")";
-    }
-    
+    }    
 }

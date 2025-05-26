@@ -5,9 +5,13 @@ import Environment.*;
 import Exception.*;
 
 public class ASTMult implements ASTNode {
-
 	ASTNode lhs, rhs;
 
+	public ASTMult(ASTNode l, ASTNode r) {
+		lhs = l;
+		rhs = r;
+	}
+	
 	public IValue eval(Environment<IValue> e) throws InterpreterError {
 		IValue v1 = lhs.eval(e);
 		IValue v2 = rhs.eval(e);
@@ -21,9 +25,5 @@ public class ASTMult implements ASTNode {
 		}
 	}
 
-	public ASTMult(ASTNode l, ASTNode r) {
-		lhs = l;
-		rhs = r;
-	}
 
 }

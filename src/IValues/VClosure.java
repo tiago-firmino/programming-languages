@@ -4,7 +4,6 @@ import Environment.*;
 import ASTNodes.*;
 
 public class VClosure implements IValue{
-    
     private final Environment<IValue> env;
     private final String param;
     private final ASTNode body;

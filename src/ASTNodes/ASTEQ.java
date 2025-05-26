@@ -5,9 +5,7 @@ import IValues.*;
 import Exception.*;
 
 public class ASTEQ implements ASTNode {
-
-    private ASTNode left;
-    private ASTNode right;
+    private ASTNode left, right;
 
     public ASTEQ(ASTNode left, ASTNode right) {
         this.left = left;

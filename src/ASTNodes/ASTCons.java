@@ -5,9 +5,7 @@ import Exception.*;
 import Environment.*;
 
 public class ASTCons implements ASTNode {
-
-    private final ASTNode head;
-    private final ASTNode tail;
+    private final ASTNode head, tail;
     private final boolean lazyCons;
 
     public ASTCons(ASTNode head, ASTNode tail, boolean lazyCons) {
@@ -23,10 +21,10 @@ public class ASTCons implements ASTNode {
             IValue headValue = head.eval(env);
             IValue tailValue = tail.eval(env);
             if (!(headValue instanceof IValue)) {
-                throw new InterpreterError("invalid value, since tail is " + tailValue + " head cannot be: " + headValue);
+                throw new InterpreterError("invalid value for head: " + headValue);
             }
             if (!(tailValue instanceof IValue)) {
-                throw new InterpreterError("invalid value, since head is " + headValue + " tail cannot be: " + tailValue);
+                throw new InterpreterError("invalid value for tail " + tailValue);
             }
             return new VCons(headValue, tailValue);
 

@@ -41,9 +41,9 @@ public class VLCons implements IValue {
     @Override
     public String toStr() {
         if (headValue == null) {
-            if (tailValue == null) // TODO DEIXAR ISTO MAIS CLARO
-                return "VLCons(headVal=undefined, tailVal=undefined)";
-            return String.format("VLCons(headVal=undefined, tailVal=%s)", 
+            if (tailValue == null)
+                return "LCons(suspended)";
+            return String.format("LCons(headVal=suspended, tailVal=%s)", 
                 tailValue.toStr());
         }
         return String.format(

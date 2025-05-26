@@ -5,8 +5,11 @@ import Environment.*;
 import Exception.*;
 
 public class ASTNeg implements ASTNode {
-
 	ASTNode exp;
+
+	public ASTNeg(ASTNode e) {
+		exp = e;
+	}
 
 	public IValue eval(Environment<IValue> e) throws InterpreterError {
 		IValue v0 = exp.eval(e);
@@ -18,8 +21,5 @@ public class ASTNeg implements ASTNode {
 		}
 	}
 
-	public ASTNeg(ASTNode e) {
-		exp = e;
-	}
 
 }

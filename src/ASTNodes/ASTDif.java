@@ -5,8 +5,7 @@ import IValues.*;
 import Exception.*;
 
 public class ASTDif implements ASTNode {
-    private final ASTNode lhs;
-    private final ASTNode rhs;
+    private final ASTNode lhs, rhs;
 
     public ASTDif(ASTNode lhs, ASTNode rhs) {
         this.lhs = lhs;

@@ -1,0 +1,24 @@
+let statefulgen = fn start => {
+  let state = box(start);
+  fn unit => {
+    let current = !state;
+    state := current + 2;
+    current :? (statefulgen(!state))
+  }
+};
+
+let gen = statefulgen(1);
+let oddstream = gen(nil);  
+
+let printlist = fn l, n => {
+  if (n == 0) {
+    0
+  } else {
+    match l {
+      nil -> 0
+    | h::t -> println(h); printlist(t(nil))(n - 1) 
+    }
+  }
+};
+
+printlist(oddstream)(20);;

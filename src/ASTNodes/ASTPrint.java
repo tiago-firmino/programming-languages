@@ -5,7 +5,6 @@ import Environment.*;
 import Exception.*;
 
 public class ASTPrint implements ASTNode {
-
     private ASTNode expr;
     private boolean isLn = false;
 
@@ -25,13 +24,5 @@ public class ASTPrint implements ASTNode {
                 System.out.println(value.toString());
             return value;
         }
-    }
-
-    public ASTNode getExpr() {
-        return expr;
-    }
-    
-    public boolean isLn() {
-        return isLn;
     }
 }

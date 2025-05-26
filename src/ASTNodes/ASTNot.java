@@ -5,7 +5,6 @@ import Environment.*;
 import Exception.*;
 
 public class ASTNot implements ASTNode {
-
     private ASTNode expr;
 
     public ASTNot(ASTNode expr) {

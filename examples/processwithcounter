@@ -1,0 +1,25 @@
+let processwithcounter = fn l => {
+  let counter = box(0);
+  let processitem = fn item => {
+    counter := !counter + 1;
+    item * 2
+  };
+  let result = box(nil);
+  let templist = box(l);
+  while (match !templist { nil -> false | h::t -> true }) {
+    match !templist {
+      nil -> 0
+    | h::t ->
+        let processed = processitem(h);
+        result := processed :: (!result);
+        templist := t
+    }
+  };
+  !result
+};
+let inputlist = 10::20::30::nil;
+let output = processwithcounter(inputlist);
+match output {
+  nil -> println(0)
+| h::t -> println(h)
+};;

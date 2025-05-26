@@ -6,11 +6,8 @@ import Environment.*;
 
 public class ASTMatch  implements ASTNode {
 
-    private final ASTNode target;
-    private final ASTNode nilBranch;
-    private final String headId;
-    private final String tailId;
-    private final ASTNode consBranch;
+    private final ASTNode target, nilBranch, consBranch;
+    private final String headId, tailId;
 
     public ASTMatch(ASTNode target,
                     ASTNode nilBranch,

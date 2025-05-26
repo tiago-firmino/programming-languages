@@ -6,6 +6,12 @@ import Exception.*;
 
 public class ASTApp implements ASTNode {
     ASTNode func, arg;
+    
+    public ASTApp(ASTNode func, ASTNode arg) {
+        this.func = func;
+        this.arg = arg;
+    }
+
     public IValue eval(Environment<IValue> env) throws InterpreterError {
         IValue fValue = func.eval(env);
 
@@ -22,9 +28,5 @@ public class ASTApp implements ASTNode {
         return appValue;
     }
 
-    public ASTApp(ASTNode func, ASTNode arg) {
-        this.func = func;
-        this.arg = arg;
-    }
     
 }

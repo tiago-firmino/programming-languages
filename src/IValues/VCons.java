@@ -1,7 +1,6 @@
 package IValues;
 
 public class VCons implements IValue {
-
     private final IValue head;
     private final IValue tail;
 

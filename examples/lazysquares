@@ -1,0 +1,1 @@
+let squares = fn n => { (n*n) :? (squares(n+1)) }; let squarestream = squares(1); let showsquares = fn stream, limit => { if (limit == 0) { println(nil) } else { match stream { nil -> println(0) | sq::rest -> println(sq); showsquares(rest)(limit-1) } } }; showsquares(squarestream)(12);;

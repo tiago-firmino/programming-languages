@@ -5,9 +5,13 @@ import Environment.*;
 import Exception.*;
 
 public class ASTSub implements ASTNode {
-
 	ASTNode lhs, rhs;
 
+	public ASTSub(ASTNode l, ASTNode r) {
+		lhs = l;
+		rhs = r;
+	}
+	
 	public IValue eval(Environment<IValue> e) throws InterpreterError {
 		IValue v1 = lhs.eval(e);
 		IValue v2 = rhs.eval(e);
@@ -19,9 +23,5 @@ public class ASTSub implements ASTNode {
 		}
 	}
 
-	public ASTSub(ASTNode l, ASTNode r) {
-		lhs = l;
-		rhs = r;
-	}
 
 }

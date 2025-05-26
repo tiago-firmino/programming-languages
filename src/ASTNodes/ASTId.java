@@ -5,7 +5,6 @@ import Environment.*;
 import Exception.*;
 
 public class ASTId implements ASTNode {
-
     String id;
 
     public ASTId(String id) {

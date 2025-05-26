@@ -5,16 +5,13 @@ import IValues.*;
 import Exception.*;
 
 public class ASTAssign implements ASTNode {
-    private final ASTNode lValue;
-    private final ASTNode rValue;
+    private final ASTNode lValue, rValue;
 
     public ASTAssign(ASTNode lValue, ASTNode rValue) {
         this.lValue = lValue;
         this.rValue = rValue;
     }
 
-
-    @Override
     public IValue eval(Environment<IValue> env) throws InterpreterError {
         IValue lVal = lValue.eval(env);
         if (!(lVal instanceof VCell)) {

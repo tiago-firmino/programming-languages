@@ -1,0 +1,1 @@
+let powersoftwo = fn n => { n :? (powersoftwo(n*2)) }; let powerstream = powersoftwo(1); let counter = box(12); let current = box(powerstream); while (!counter > 0) { match (!current) { nil -> println(0) | value::rest -> println(value); current := rest }; counter := !counter - 1 };;

@@ -1,0 +1,26 @@
+let lazytoregular = fn lazylist, maxlength => {
+  let converthelper = fn l, remaining => {
+    if (remaining == 0) {
+      nil
+    } else {
+      match l {
+        nil -> nil
+      | h::t -> h :: (converthelper(t)(remaining-1))
+      }
+    }
+  };
+  converthelper(lazylist)(maxlength)
+};
+
+let infinitetwos = fn unit => { 2 :? (infinitetwos(0)) };
+let twostream = infinitetwos(0);
+let regulartwos = lazytoregular(twostream)(5);
+
+let printlist = fn l => {
+  match l {
+    nil -> 0
+  | h::t -> println(h); printlist(t)
+  }
+};
+
+printlist(regulartwos);;
