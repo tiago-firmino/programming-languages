@@ -24,15 +24,15 @@ public class ASTMatch  implements ASTNode {
     }
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
-        IValue targetVal= this.target.eval(env);
+        IValue targetVal= target.eval(env);
         if (targetVal instanceof VNil) {
-            return this.nilBranch.eval(env);
+            return nilBranch.eval(env);
         } else if (targetVal instanceof VCons) {
             VCons consValue = (VCons) targetVal;
             Environment<IValue> consEnv = env.beginScope();
             consEnv.assoc(headId, consValue.getHead());
             consEnv.assoc(tailId, consValue.getTail());
-            return this.consBranch.eval(consEnv);
+            return consBranch.eval(consEnv);
         } else {
             throw new InterpreterError("invalid target value: " + targetVal);
         }

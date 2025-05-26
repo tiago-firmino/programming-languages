@@ -19,7 +19,7 @@ public class ASTWhile implements ASTNode {
             IValue condVal = condition.eval(e);
 
             if (!(condVal instanceof VBool)) {
-                throw new InterpreterError("illegal types to while condition" + condVal.toStr());
+                throw new InterpreterError("illegal types to while condition: " + condVal.toStr());
             } else {
                 if (!((VBool) condVal).getval()) {
                     break;

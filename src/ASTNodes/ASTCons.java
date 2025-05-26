@@ -16,10 +16,10 @@ public class ASTCons implements ASTNode {
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
     
-        IValue headValue = this.head.eval(env);
-        IValue tailValue = this.tail.eval(env);
+        IValue headValue = head.eval(env);
+        IValue tailValue = tail.eval(env);
         if (!(tailValue instanceof VCons || tailValue instanceof VNil)) {
-            throw new InterpreterError("invalid value, since head is" + headValue + "tail cannot be: " + tailValue);
+            throw new InterpreterError("invalid value, since head is " + headValue + "tail cannot be: " + tailValue);
         }
         return new VCons(headValue, tailValue);
 
