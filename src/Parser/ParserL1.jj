@@ -75,8 +75,6 @@ TOKEN :
 	|
 	< BOX : "box" >
 	|
-	< MATCH : "match" >
-	|
 	< IF : "if" >
 	|
 	< ELSE : "else" >
@@ -97,6 +95,14 @@ TOKEN :
 	|
 	< LIST : "::" >
 	|
+	< MATCH : "match" >
+	|
+	< NIL : "nil" >
+	|
+	< CONSARROW : "->" >
+	|
+	< BAR : "|" >
+	|
 	< LAZY : "::?" >
 	|
 	< String: "\"" ( (~["\"","\\"]) | ("\\" ( ["n","t","b","r","f","\\","\""] ) ) )* "\"" >
@@ -116,7 +122,7 @@ ASTNode Start():
 ASTNode Let() :
 { Token n; 
 	ASTNode t, e1, e2;
-	List<Bind> decls  = new ArrayList<Bind>();;
+	List<Bind> decls  = new ArrayList<Bind>();
 }
 { 
 		(
@@ -232,19 +238,26 @@ ASTNode Term() :
 {Token op;
 	ASTNode t1, t2;}
 {
-		 t1 = Fact() (
-		 op=<STAR> t2 = Fact()   { t1 = new ASTMult(t1,t2); }
+		t1 = Fact()
+		(
+		 (op = <LIST> | op = <LAZY>) t2 = Term() {
+		  if (op.kind == LIST) { t1 = new ASTCons(t1, t2); }
+		 }
 		 |
-		 op=<DIV> t2 = Fact()  { t1 = new ASTDiv(t1,t2); }
-		 |
-		 op = <LPAR> t2 = Exp () <RPAR>  { t1 = new ASTApp(t1, t2); } 
-		)*
+		 (
+		  op=<STAR> t2 = Fact()   { t1 = new ASTMult(t1,t2); }
+		  |
+		  op=<DIV> t2 = Fact()  { t1 = new ASTDiv(t1,t2); }
+		  |
+		  op = <LPAR> t2 = Exp () <RPAR>  { t1 = new ASTApp(t1, t2); } 
+		 )*
+		)
 		 { return t1; } 
 }
 
 
 ASTNode Fact() :
-{ Token n; 
+{ Token n, m; 
 	ASTNode t, e1, e2;
 	List<Bind> decls;
 	ASTNode  body, alt;
@@ -270,7 +283,11 @@ ASTNode Fact() :
 
 		| <PRINT> t=Fact() { t = new ASTPrint(t, false); }
 		| <PRINTLN> t=Fact() { t = new ASTPrint(t, true); }
-		| <LPAR> t=Let() <RPAR> 
+		| <LPAR> t=Let() <RPAR>
+		| <NIL> { t = new ASTNil(); }
+		| <MATCH> t = Term() <LBRA> <NIL> <CONSARROW> body = Let() <BAR>
+				  n = <Id> <LIST> m = <Id> <CONSARROW> alt = Let() <RBRA>
+				  { t = new ASTMatch(t, body, n.image, m.image, alt); }
 		)
 	 { return t; }
 }

@@ -11,27 +11,17 @@ public class VBool implements IValue{
         return v;
     }
 
-    public boolean getBool() {
-        return v;
-    }
-
+    @Override
     public String toStr() {
         return Boolean.toString(v);
     }
-
-    VBool(int v0) {
-        v = (v0 != 0);
-    }
-
-    VBool(String v0) {
-        v = (v0.equals("true"));
+    
+    @Override
+	public String toString() {
+        return toStr();
     }
 
     VBool(VBool v0) {
         v = v0.v;
-    }
-
-    VBool(VInt v0) {
-        v = (v0.getval() != 0);
     }
 }

@@ -19,8 +19,4 @@ public class ASTDeref implements ASTNode {
         else
             return ((VCell) v).getval();
     }
-
-    public String toStr() {
-        return "*(" + expr.toString() + ")";
-    }
 }

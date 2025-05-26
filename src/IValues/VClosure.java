@@ -26,7 +26,8 @@ public class VClosure implements IValue{
     public ASTNode getBody() {
         return this.body;
     }
-
+    
+    @Override
     public String toStr() {
         return String.format(
             "Clos(env=%s, param=%s, body=%s)",
@@ -34,6 +35,11 @@ public class VClosure implements IValue{
             param,
             body
         );
+    }
+
+    @Override
+	public String toString() {
+        return toStr();
     }
     
 }

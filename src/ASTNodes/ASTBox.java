@@ -12,12 +12,7 @@ public class ASTBox implements ASTNode {
     }
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {
-        // lazy box ⇒ a thunk
         IValue value = expr.eval(env);
         return new VCell(value);
-    }
-
-    public String toStr() {
-        return "box(" + expr + ")";
     }
 }

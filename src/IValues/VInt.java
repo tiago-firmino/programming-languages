@@ -10,16 +10,17 @@ public class VInt implements IValue {
 		return v;
 	}
 	
+	@Override
 	public String toStr() {
 		return Integer.toString(v);
 	}
+	
+	@Override
+	public String toString() {
+        return toStr();
+    }
 
 	VInt(VInt v0) {
 		v = v0.v;
 	}
-	
-	VInt(String v0) {
-		v = Integer.parseInt(v0);
-	}
-
 }

@@ -19,11 +19,10 @@ public class ASTIfThenElse implements ASTNode {
         if (!(condVal instanceof VBool)) {
             throw new InterpreterError("Condition must be a boolean: " + condVal.toStr());
         } else {
-            if (((VBool) condVal).getval()) {
+            if (((VBool) condVal).getval())
                 return thenBr.eval(env);
-            } else {
+            else
                 return elseBr.eval(env);
-            }
         }
     }
 }
