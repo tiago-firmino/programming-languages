@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+
 echo ">>> cleaning up"
 rm -f run/*.class
 rm -f src/Parser/*.java
@@ -10,5 +11,41 @@ javacc ParserL1.jj
 cd ../..
 javac -d run -cp src $(find src -name "*.java")
 
-echo ">>> running L1int"
-java -cp run L1int
+cd tests
+
+if [[ $# -eq 0 ]]; then
+    echo ">>> No test file provided; launching REPL"
+    java -cp ../run L1int
+    exit 0
+fi
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 [<tests.md>]"
+    exit 1
+fi
+
+test_file="$1"
+echo ">>> running tests from $test_file"
+
+# collect only lines ending in ';;'
+mapfile -t tests < <(
+  grep -E ';;\s*$' "$test_file" \
+    | grep -v '^\s*#' \
+    | grep -v '^\s*/\*' \
+    | grep -v '\*/'
+)
+
+if [[ ${#tests[@]} -eq 0 ]]; then
+  echo "No tests found in $test_file (no lines ending with ';;')."
+  exit 1
+fi
+
+for expr in "${tests[@]}"; do
+  echo
+  echo ">>> Test: $expr"
+  echo "$expr" \
+    | java -cp ../run L1int \
+    | sed -e '/^L1 interpreter PL MEIC/d' \
+          -e '/^# $/d' \
+          -e 's/^# //'
+done

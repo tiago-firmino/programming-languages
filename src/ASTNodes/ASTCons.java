@@ -25,7 +25,7 @@ public class ASTCons implements ASTNode {
             if (!(headValue instanceof IValue)) {
                 throw new InterpreterError("invalid value, since tail is " + tailValue + " head cannot be: " + headValue);
             }
-            if (!(tailValue instanceof VCons || tailValue instanceof VLCons || tailValue instanceof VNil || tailValue instanceof VInt)) {
+            if (!(tailValue instanceof IValue)) {
                 throw new InterpreterError("invalid value, since head is " + headValue + " tail cannot be: " + tailValue);
             }
             return new VCons(headValue, tailValue);
