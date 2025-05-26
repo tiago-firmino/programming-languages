@@ -27,12 +27,28 @@ public class ASTMatch  implements ASTNode {
         IValue targetVal= target.eval(env);
         if (targetVal instanceof VNil) {
             return nilBranch.eval(env);
+
         } else if (targetVal instanceof VCons) {
             VCons consValue = (VCons) targetVal;
             Environment<IValue> consEnv = env.beginScope();
             consEnv.assoc(headId, consValue.getHead());
             consEnv.assoc(tailId, consValue.getTail());
             return consBranch.eval(consEnv);
+
+        } else if (targetVal instanceof VLCons) {
+            VLCons lazyConsValue = (VLCons) targetVal;
+            Environment<IValue> consLEnv = lazyConsValue.getEnv();
+            IValue headVal = lazyConsValue.getHead().eval(consLEnv);
+            IValue tailVal = lazyConsValue.getTail().eval(consLEnv);
+
+            lazyConsValue.setHeadValue(headVal);
+            lazyConsValue.setTailValue(tailVal);
+            
+            env = env.beginScope();
+            env.assoc(headId, headVal);
+            env.assoc(tailId, tailVal);
+
+            return consBranch.eval(env);
         } else {
             throw new InterpreterError("invalid target value: " + targetVal);
         }

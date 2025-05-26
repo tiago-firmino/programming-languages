@@ -150,7 +150,7 @@ public interface ParserConstants {
     "\"nil\"",
     "\"->\"",
     "\"|\"",
-    "\"::?\"",
+    "\":?\"",
     "<String>",
     "<Id>",
     "<Num>",

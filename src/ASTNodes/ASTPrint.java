@@ -23,9 +23,8 @@ public class ASTPrint implements ASTNode {
                 System.out.print(value.toString());
             else 
                 System.out.println(value.toString());
+            return value;
         }
-        
-        return value;
     }
 
     public ASTNode getExpr() {

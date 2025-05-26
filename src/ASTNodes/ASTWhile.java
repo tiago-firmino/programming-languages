@@ -15,9 +15,9 @@ public class ASTWhile implements ASTNode {
     }
 
     public IValue eval(Environment<IValue> e) throws InterpreterError {
+        IValue condVal;
         while (true) {
-            IValue condVal = condition.eval(e);
-
+            condVal = condition.eval(e);
             if (!(condVal instanceof VBool)) {
                 throw new InterpreterError("illegal types to while condition: " + condVal.toStr());
             } else {
@@ -29,15 +29,6 @@ public class ASTWhile implements ASTNode {
             }
 
         }
-        return null;
+        return condVal;
     }
-
-    public ASTNode getCondition() {
-        return condition;
-    }
-
-    public ASTNode getBody() {
-        return body;
-    }
-    
 }

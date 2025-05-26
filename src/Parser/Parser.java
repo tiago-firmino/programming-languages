@@ -306,7 +306,8 @@ public class Parser implements ParserConstants {
         throw new ParseException();
       }
       t2 = Term();
-                  if (op.kind == LIST) { t1 = new ASTCons(t1, t2); }
+                  if (op.kind == LIST) { t1 = new ASTCons(t1, t2, false); }
+                  else { t1 = new ASTCons(t1, t2, true); }
       break;
     default:
       jj_la1[14] = jj_gen;

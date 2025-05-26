@@ -26,7 +26,7 @@ public class VCons implements IValue {
             tail.toStr()
         );
     }
-    
+
     @Override
 	public String toString() {
         return toStr();

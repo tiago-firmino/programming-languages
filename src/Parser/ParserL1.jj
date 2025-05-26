@@ -103,7 +103,7 @@ TOKEN :
 	|
 	< BAR : "|" >
 	|
-	< LAZY : "::?" >
+	< LAZY : ":?" >
 	|
 	< String: "\"" ( (~["\"","\\"]) | ("\\" ( ["n","t","b","r","f","\\","\""] ) ) )* "\"" >
 	|
@@ -241,7 +241,8 @@ ASTNode Term() :
 		t1 = Fact()
 		(
 		 (op = <LIST> | op = <LAZY>) t2 = Term() {
-		  if (op.kind == LIST) { t1 = new ASTCons(t1, t2); }
+		  if (op.kind == LIST) { t1 = new ASTCons(t1, t2, false); }
+		  else { t1 = new ASTCons(t1, t2, true); }
 		 }
 		 |
 		 (

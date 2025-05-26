@@ -1,4 +1,5 @@
 package IValues;
+
 public class VBool implements IValue{
 
     boolean v;

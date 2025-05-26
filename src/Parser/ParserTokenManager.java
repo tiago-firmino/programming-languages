@@ -28,11 +28,8 @@ private static final int jjStopStringLiteralDfa_0(int pos, long active0)
             return 6;
          if ((active0 & 0xc3e800000e0L) != 0L)
          {
-            if (jjmatchedPos != 1)
-            {
-               jjmatchedKind = 48;
-               jjmatchedPos = 1;
-            }
+            jjmatchedKind = 48;
+            jjmatchedPos = 1;
             return 6;
          }
          return -1;
@@ -169,11 +166,8 @@ static private int jjMoveStringLiteralDfa1_0(long active0)
          break;
       case 58:
          if ((active0 & 0x20000000000L) != 0L)
-         {
-            jjmatchedKind = 41;
-            jjmatchedPos = 1;
-         }
-         return jjMoveStringLiteralDfa2_0(active0, 0x400000000000L);
+            return jjStopAtPos(1, 41);
+         break;
       case 59:
          if ((active0 & 0x80000L) != 0L)
             return jjStopAtPos(1, 19);
@@ -195,6 +189,10 @@ static private int jjMoveStringLiteralDfa1_0(long active0)
             return jjStopAtPos(1, 39);
          else if ((active0 & 0x100000000000L) != 0L)
             return jjStopAtPos(1, 44);
+         break;
+      case 63:
+         if ((active0 & 0x400000000000L) != 0L)
+            return jjStopAtPos(1, 46);
          break;
       case 97:
          return jjMoveStringLiteralDfa2_0(active0, 0x40000000080L);
@@ -238,10 +236,6 @@ static private int jjMoveStringLiteralDfa2_0(long old0, long active0)
    }
    switch(curChar)
    {
-      case 63:
-         if ((active0 & 0x400000000000L) != 0L)
-            return jjStopAtPos(2, 46);
-         break;
       case 100:
          if ((active0 & 0x800000000L) != 0L)
             return jjStartNfaWithStates_0(2, 35, 6);
@@ -511,7 +505,7 @@ public static final String[] jjstrLiteralImages = {
 "\176\75", "\176", "\72\75", "\142\157\170", "\151\146", "\145\154\163\145", 
 "\167\150\151\154\145", "\145\156\144", "\160\162\151\156\164", "\160\162\151\156\164\154\156", 
 "\146\156", "\75\76", "\41", "\72\72", "\155\141\164\143\150", "\156\151\154", "\55\76", 
-"\174", "\72\72\77", null, null, null, };
+"\174", "\72\77", null, null, null, };
 
 /** Lexer state names. */
 public static final String[] lexStateNames = {
