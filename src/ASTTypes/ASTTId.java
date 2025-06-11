@@ -1,6 +1,6 @@
 package ASTTypes;
 
-public	class ASTTId implements ASTType	{	
+public class ASTTId implements ASTType	{	
 
     String id;	
     

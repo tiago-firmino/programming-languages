@@ -1,16 +1,23 @@
 package ASTTypes;
+import java.util.Map;
+
 import Environment.*;
 
 public class ASTTStruct implements ASTType {
 
-    private TypeBindList ll;
-
-    public ASTTStruct(TypeBindList llp) {
-        ll = llp;
-    }
-    
+    public Map<String, ASTType> fields;
+    public ASTTStruct(TypeBindList lbls) { this.fields = lbls.getMap(); }
     public String toStr() {
-        return "union { ... }";
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        boolean first = true;
+        for (Map.Entry<String, ASTType> e : fields.entrySet()) {
+            if (!first) sb.append(", ");
+            sb.append(e.getKey()).append(": ").append(e.getValue().toStr());
+            first = false;
+        }
+        sb.append("}");
+        return sb.toString();
     }
 
 }
