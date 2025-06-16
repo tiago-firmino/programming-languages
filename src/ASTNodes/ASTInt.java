@@ -17,7 +17,7 @@ public class ASTInt implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
         return new ASTTInt();
     }
 

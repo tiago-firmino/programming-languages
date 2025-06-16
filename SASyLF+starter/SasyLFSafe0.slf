@@ -126,8 +126,7 @@ dt' : * |- e' : tau by induction on ds:
         --------------- c-pair-l
         _: (< e0, e2 >) -> (< e1, e2 >)
     is
-        dt' : * |- e1 : tau1 by induction hypothesis on d3, d1
-        dt'' : * |- <e1, e2> : tau1 * tau2 by rule t-pair on dt', d4
+        proof by unproved
     end case
 
     case rule
@@ -136,8 +135,7 @@ dt' : * |- e' : tau by induction on ds:
         --------------- c-pair-r
         _: (< e0, e1 >) -> (< e0, e2 >)
     is
-        dt' : * |- e2 : tau2 by induction hypothesis on d4, d2
-        dt'' : * |- <e0, e2> : tau1 * tau2 by rule t-pair on d3, dt'
+        proof by unproved
     end case
 
     case rule
@@ -146,8 +144,7 @@ dt' : * |- e' : tau by induction on ds:
         --------------- r-fst
         _: (fst (< e', e0 >)) -> e'
     is
-        dt' : * |- <e', e0> : tau1 * tau2 by inversion on dt
-        dt'' : * |- e' : tau1 by inversion on dt'
+        proof by unproved
     end case
 
     case rule
@@ -156,8 +153,7 @@ dt' : * |- e' : tau by induction on ds:
         --------------- r-snd
         _: (snd (< e0, e' >)) -> e'
     is
-        dt' : * |- <e0, e'> : tau1 * tau2 by inversion on dt
-        dt'' : * |- e' : tau2 by inversion on dt'
+        proof by unproved
     end case
 
     case rule
@@ -165,8 +161,7 @@ dt' : * |- e' : tau by induction on ds:
         --------------- c-fst
         _: (fst e0) -> (fst e1)
     is
-        dt' : * |- e1 : tau1 * tau2 by induction hypothesis on d3, d1
-        dt'' : * |- fst e1 : tau1 by rule t-fst on dt'
+        proof by unproved
     end case
 
     case rule
@@ -174,8 +169,7 @@ dt' : * |- e' : tau by induction on ds:
         --------------- c-snd
         _: (snd e0) -> (snd e1)
     is
-        dt' : * |- e1 : tau1 * tau2 by induction hypothesis on d3, d1
-        dt'' : * |- snd e1 : tau2 by rule t-snd on dt'
+        proof by unproved
     end case
 
 

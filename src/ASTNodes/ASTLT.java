@@ -25,9 +25,9 @@ public class ASTLT implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType t1 = left.typecheck(e);
-        ASTType t2 = right.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType t1 = left.typecheck(types, names);
+        ASTType t2 = right.typecheck(types, names);
         if (!(t1 instanceof ASTTInt) || !(t2 instanceof ASTTInt)) {
             throw new TypeCheckError("< operator: types do not match, " + t1.toStr() + " and " + t2.toStr() + " found.");
         }

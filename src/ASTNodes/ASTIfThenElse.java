@@ -27,13 +27,13 @@ public class ASTIfThenElse implements ASTNode {
         }
     }
 
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType condtyType = cond.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType condtyType = cond.typecheck(types, names);
         if (!(condtyType instanceof ASTTBool)) {
             throw new TypeCheckError("Condition of if-then-else must be a boolean, found: " + condtyType.toStr());
         }
-        ASTType thenType = thenBr.typecheck(e);
-        ASTType elseType = elseBr.typecheck(e);
+        ASTType thenType = thenBr.typecheck(types, names);
+        ASTType elseType = elseBr.typecheck(types, names);
         if (!thenType.equals(elseType)) {
             throw new TypeCheckError("Branches of if-then-else must have the same type, found: " + thenType.toStr() + " and " + elseType.toStr());
         }

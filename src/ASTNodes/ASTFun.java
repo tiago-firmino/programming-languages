@@ -25,11 +25,11 @@ public class ASTFun implements ASTNode {
         this.body = b;
     }
 
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
         Environment<ASTType> newEnv;
-        newEnv = e.beginScope();
+        newEnv = types.beginScope();
         newEnv.assoc(id, paramType);
-        ASTType bodyType = body.typecheck(newEnv);
+        ASTType bodyType = body.typecheck(newEnv, names);
         return new ASTTArrow(paramType, bodyType);
     }   
 }

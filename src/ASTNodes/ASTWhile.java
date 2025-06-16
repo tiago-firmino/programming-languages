@@ -32,12 +32,12 @@ public class ASTWhile implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType condType = condition.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType condType = condition.typecheck(types, names);
         if (!(condType instanceof ASTTBool)) {
             throw new TypeCheckError("Condition of if-then-else must be a boolean, found: " + condType.toStr());
         }
-        ASTType bodyType = body.typecheck(e);
+        ASTType bodyType = body.typecheck(types, names);
         return bodyType;
     }
 }

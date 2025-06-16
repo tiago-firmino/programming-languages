@@ -1,5 +1,8 @@
 package ASTTypes;
 
+import Environment.*;
+import Exception.*;
+
 public class ASTTId implements ASTType	{	
 
     String id;	
@@ -20,6 +23,15 @@ public class ASTTId implements ASTType	{
         if (obj instanceof ASTTId)
             return this.getId().equals(((ASTTId) obj).getId());
         return false;
+    }
+
+    @Override
+    public ASTType unfold(Environment<ASTType> types) throws InterpreterError {
+        ASTType type = types.find(id);
+        if (type == null) {
+            throw new InterpreterError("Unbound type variable: " + id);
+        }
+        return type.unfold(types);
     }
 
 

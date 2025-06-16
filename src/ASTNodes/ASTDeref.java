@@ -23,8 +23,8 @@ public class ASTDeref implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType exprType = expr.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType exprType = expr.typecheck(types, names);
         if (!(exprType instanceof ASTTRef))
             throw new TypeCheckError("deref: ref expected, found " + exprType.toStr());
         return ((ASTTRef) exprType).getType();

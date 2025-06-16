@@ -24,11 +24,11 @@ public class ASTOr implements ASTNode {
         }
     }
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType t1 = lhs.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType t1 = lhs.typecheck(types, names);
         if (!(t1 instanceof ASTTBool))
             throw new TypeCheckError("left operand of || must be a boolean");
-        ASTType t2 = rhs.typecheck(e);
+        ASTType t2 = rhs.typecheck(types, names);
         if (!(t2 instanceof ASTTBool))
             throw new TypeCheckError("right operand of || must be a boolean");
         return new ASTTBool();

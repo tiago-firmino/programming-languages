@@ -1,5 +1,8 @@
 package ASTTypes;
 
+import Environment.*;
+import Exception.*;
+
 public class ASTTRef implements ASTType {
 
     private ASTType type;
@@ -22,5 +25,14 @@ public class ASTTRef implements ASTType {
             return this.type.equals(other.type);
         }
         return false;
+    }
+
+    @Override
+    public ASTType unfold(Environment<ASTType> types) throws InterpreterError {
+        ASTType unfoldedType = type.unfold(types);
+        if (unfoldedType == type) {
+            return this;
+        }
+        return new ASTTRef(unfoldedType);
     }
 }

@@ -23,8 +23,8 @@ public class ASTNot implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType t = expr.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType t = expr.typecheck(types, names);
         if (t instanceof ASTTBool)
             return new ASTTBool();
         else

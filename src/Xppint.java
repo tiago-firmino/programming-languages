@@ -17,7 +17,7 @@ public class Xppint {
 				exp = Parser.Start();
 				if (exp == null)
 					System.exit(0);
-				ASTType t = exp.typecheck(new Environment<ASTType>());
+				ASTType t = exp.typecheck(new Environment<ASTType>(), new Environment<ASTType>());
 				System.out.println(t.toStr());
 				IValue v = exp.eval(new Environment<IValue>());
 				System.out.println(v.toStr());

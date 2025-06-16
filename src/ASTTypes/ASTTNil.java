@@ -1,5 +1,7 @@
 package ASTTypes;
 
+import Environment.*;
+
 public class ASTTNil implements ASTType {
 
     @Override
@@ -9,6 +11,11 @@ public class ASTTNil implements ASTType {
 
     public boolean equals(Object obj) {
         return obj instanceof ASTTNil;
+    }
+
+    @Override
+    public ASTType unfold(Environment<ASTType> types) {
+        return this;
     }
 
 }

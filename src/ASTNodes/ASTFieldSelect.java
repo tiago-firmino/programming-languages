@@ -28,20 +28,20 @@ public class ASTFieldSelect implements ASTNode {
 
     
     public IValue eval(Environment<IValue> env) throws InterpreterError {
-        IValue recVal = record.eval(env);
-        if (!(recVal instanceof VCell)) {
-            throw new InterpreterError("Expected a struct for field access, got: " + recVal);
+        IValue recValue = record.eval(env);
+        if (!(recValue instanceof VRecord)) {
+            throw new InterpreterError("Expected a record, but got: " + recValue);
         }
-        //VCell struct = (VCell) recVal;
-        //if (!struct.hasField(field)) {
-        //    throw new InterpreterError("Field '" + field + "' not found in struct");
-        //}
-        //return struct.getField(field);
-        return null; // Placeholder for actual field access logic
+        VRecord recordValue = (VRecord) recValue;
+        IValue fieldValue = recordValue.getField(field);
+        if (fieldValue == null) {
+            throw new InterpreterError("Field '" + field + "' not found in record");
+        }
+        return fieldValue;
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
         throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

@@ -30,12 +30,12 @@ public class ASTDiv implements ASTNode {
 	}
 
 	
-	public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-		ASTType t1 = lhs.typecheck(e);
+	public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+		ASTType t1 = lhs.typecheck(types, names);
 		if (!(t1 instanceof ASTTInt)) {
 			throw new TypeCheckError("left operand of / must be an integer, found " + t1.toStr());
 		}
-		ASTType t2 = rhs.typecheck(e);
+		ASTType t2 = rhs.typecheck(types, names);
 		if (!(t2 instanceof ASTTInt)) {
 			throw new TypeCheckError("right operand of / must be an integer, found " + t2.toStr());
 		}

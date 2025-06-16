@@ -17,8 +17,8 @@ public class ASTId implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType t = e.find(id);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType t = types.find(id);
         if (t == null) {
             throw new TypeCheckError("Identifier '" + id + "' not found in environment");
         }

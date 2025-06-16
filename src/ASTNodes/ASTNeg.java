@@ -23,8 +23,8 @@ public class ASTNeg implements ASTNode {
 	}
 
 	
-	public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-		ASTType t = exp.typecheck(e);
+	public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+		ASTType t = exp.typecheck(types, names);
 		if (!(t instanceof ASTTInt)) {
 			throw new TypeCheckError("neg operator: integer expected, " + t.toStr() + " found.");
 		}

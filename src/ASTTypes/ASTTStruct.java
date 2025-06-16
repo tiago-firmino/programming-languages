@@ -1,7 +1,9 @@
 package ASTTypes;
-import java.util.Map;
+import java.util.*;
+
 
 import Environment.*;
+import Exception.*;
 
 public class ASTTStruct implements ASTType {
 
@@ -21,8 +23,30 @@ public class ASTTStruct implements ASTType {
     }
 
     public boolean equals(Object obj) {
-        //TODO
+        if (obj instanceof ASTTStruct) {
+            ASTTStruct other = (ASTTStruct) obj;
+            if (this.fields.size() != other.fields.size()) return false;
+            for (Map.Entry<String, ASTType> entry : this.fields.entrySet()) {
+                String key = entry.getKey();
+                ASTType value = entry.getValue();
+                if (!other.fields.containsKey(key) || !other.fields.get(key).equals(value)) {
+                    return false;
+                }
+            }
+            return true;
+        }
         return false;
+    }
+    @Override
+    public ASTType unfold(Environment<ASTType> types) throws InterpreterError {
+        TypeBindList lbls = new TypeBindList(new HashMap<>());
+        for (Map.Entry<String, ASTType> entry : fields.entrySet()) {
+            String key = entry.getKey();
+            ASTType value = entry.getValue().unfold(types);
+            lbls.add(key, value);
+        }
+        if (lbls.isEmpty()) return this;
+        return new ASTTStruct(lbls);
     }
 
 

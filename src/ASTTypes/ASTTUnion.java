@@ -1,7 +1,8 @@
 package ASTTypes;
 
-import java.util.Map;
+import java.util.*;
 import Environment.*;
+import Exception.*;
 
 public class ASTTUnion implements ASTType {
     public Map<String, ASTType> variants;
@@ -22,8 +23,41 @@ public class ASTTUnion implements ASTType {
     }
 
     public boolean equals(Object obj) {
-        // TODO
+        if (obj instanceof ASTTUnion) {
+            ASTTUnion other = (ASTTUnion) obj;
+            if (this.variants.size() != other.variants.size()) return false;
+            for (Map.Entry<String, ASTType> entry : this.variants.entrySet()) {
+                String key = entry.getKey();
+                ASTType value = entry.getValue();
+                if (!other.variants.containsKey(key) || !other.variants.get(key).equals(value)) {
+                    return false;
+                }
+            }
+            return true;
+        }
         return false;
+    }
+
+    public ASTType[] getTypes() {
+        ASTType[] types = new ASTType[variants.size()];
+        int i = 0;
+        for (Map.Entry<String, ASTType> entry : variants.entrySet()) {
+            types[i++] = entry.getValue();
+        }
+        return types;
+    }
+
+    @Override
+    public ASTType unfold(Environment<ASTType> types) throws InterpreterError {
+        
+        TypeBindList lbls = new TypeBindList(new HashMap<>());
+        for (Map.Entry<String, ASTType> entry : variants.entrySet()) {
+            String key = entry.getKey();
+            ASTType value = entry.getValue().unfold(types);
+            lbls.add(key, value);
+        }
+        if (lbls.isEmpty()) return this;
+        return new ASTTUnion(lbls);
     }
 
 }

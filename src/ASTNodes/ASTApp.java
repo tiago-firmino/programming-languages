@@ -30,12 +30,12 @@ public class ASTApp implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType t1 = func.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType t1 = func.typecheck(types, names);
         if (!(t1 instanceof ASTTArrow)) {
             throw new TypeCheckError("app: function type expected, found " + t1.toStr());
         }
-        ASTType t2 = arg.typecheck(e);
+        ASTType t2 = arg.typecheck(types, names);
         ASTType dom = ((ASTTArrow) t1).getDom();
 
         if (!dom.equals(t2)) {

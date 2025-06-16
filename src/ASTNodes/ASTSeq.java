@@ -23,9 +23,9 @@ public class ASTSeq implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType firstType = first.typecheck(e);
-        ASTType secondType = second.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType firstType = first.typecheck(types, names);
+        ASTType secondType = second.typecheck(types, names);
         return secondType;
     }
 }

@@ -324,7 +324,7 @@ TypeBindList LabelList() :
     { ll = new HashMap<String,ASTType>(); }
     (
       n = <Id> <COLON> t = Type() { ll.put(n.image, t); }
-      ( <COMMA> n = <Id> <COLON> t = Type() { ll.put(n.image, t); } )*
+      ( <COMMA> n = <Label> <COLON> t = Type() { ll.put(n.image, t); } )*
     )?
     { return new TypeBindList(ll); }
 }

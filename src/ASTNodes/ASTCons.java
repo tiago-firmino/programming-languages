@@ -33,7 +33,8 @@ public class ASTCons implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType headType = head.typecheck(types, names);
+        return new ASTTList(headType);
     }
 }

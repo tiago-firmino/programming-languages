@@ -101,19 +101,7 @@ type knott = ref<int->int>; let knot:knott = box (fn x:int => {x}); let fact = f
 /*some functions to encode mutable pairs*/
 /*now w / type defs*/
 
-type Iaccessor = ref<int> -> ref<int> -> int;
-type Igettype = (Iaccessor -> int)->int;
-type Isettype = (Iaccessor -> int) -> int -> int;
-
-let mkpair = fn a:int,b:int => { let l = box(a); let r = box(b); fn f:Iaccessor => { f (l) (r) } }; let getfst:Igettype = fn p:Iaccessor->int => { p (fn a:ref<int>,b:ref<int> => { !a }) };
-
-let getsnd:Igettype = fn p:Iaccessor->int => { p (fn a:ref<int>,b:ref<int> => { !b })};
-
-let setfst:Isettype  = fn p:Iaccessor->int,v:int => { p (fn a:ref<int>,b:ref<int> => { a := v })};
-
-let setsnd:Isettype = fn p:Iaccessor->int,v:int => { p (fn a:ref<int>,b:ref<int> => { b := v })};
-
-let x = mkpair (1) (2); setfst (x) (10); setsnd (x) (20); (getfst (x)) + (getsnd (x));;
+type Iaccessor = ref<int> -> ref<int> -> int; type Igettype = (Iaccessor -> int)->int; type Isettype = (Iaccessor -> int) -> int -> int; let mkpair = fn a:int,b:int => { let l = box(a); let r = box(b); fn f:Iaccessor => { f (l) (r) } }; let getfst:Igettype = fn p:Iaccessor->int => { p (fn a:ref<int>,b:ref<int> => { !a }) }; let getsnd:Igettype = fn p:Iaccessor->int => { p (fn a:ref<int>,b:ref<int> => { !b })}; let setfst:Isettype  = fn p:Iaccessor->int,v:int => { p (fn a:ref<int>,b:ref<int> => { a := v })}; let setsnd:Isettype = fn p:Iaccessor->int,v:int => { p (fn a:ref<int>,b:ref<int> => { b := v })}; let x = mkpair (1) (2); setfst (x) (10); setsnd (x) (20); (getfst (x)) + (getsnd (x));;
 
 let inc = fn r:ref<int>,z:int->int => { r := z(!r + 1); !r}; let age = box (1); inc (age) (fn x:int => { x + 1 });;
 
@@ -210,8 +198,6 @@ let area = fn b:union{ #circle: Circle } => { match b { #circle(c) -> let r = pi
 type Circle = struct { #cx:int, #cy:int, #rad:int }; type Rectangle = struct { #h:int, #w:int }; type Blob = union { #circle: Circle, #rect: Rectangle }; let pi = 3142;
 let area = fn b:union{ #rect: Rectangle } => { match b { #circle(c) -> let r = pi*c.#rad; (r*r)/2 | #rect(r) -> r.#h * r.#w } }; let r1:Blob = #rect({ #h = 10, #w = 20 }); area(r1);;
 
-type Circle = struct { #cx:int, #cy:int, #rad:int }; type Rectangle = struct { #h:int, #w:int }; type Blob = union { #circle: Circle, #rect: Rectangle }; let pi = 3142;
-let area = fn b:union{ #rect: Rectangle } => { match b { #circle(c) -> let r = pi*c.#rad; (r*r)/2 | #rect(r) -> r.#h * r.#w } }; let r1 = #rect({ #h = 10, #w = 20 });
-area(r1);;
+type Circle = struct { #cx:int, #cy:int, #rad:int }; type Rectangle = struct { #h:int, #w:int }; type Blob = union { #circle: Circle, #rect: Rectangle }; let pi = 3142; let area = fn b:union{ #rect: Rectangle } => { match b { #circle(c) -> let r = pi*c.#rad; (r*r)/2 | #rect(r) -> r.#h * r.#w } }; let r1 = #rect({ #h = 10, #w = 20 }); area(r1);;
 
 type Circle = struct { #cx:int, #cy:int, #rad:int }; type Rectangle = struct { #h:int, #w:int }; type Blob = union { #circle: Circle, #rect: Rectangle }; let pi = 3; /*3.14*/ let area = fn b:Blob => { match b { #circle(c) -> let r = pi*c.#rad; (r*r)/2 | #rect(r) -> r.#h * r.#w } }; let r1 = #circle({ #cx=0, #cy=0, #rad=2 }); area(r1);;

@@ -28,8 +28,8 @@ public class ASTPrint implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType t = expr.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType t = expr.typecheck(types, names);
         if (t instanceof ASTTInt || t instanceof ASTTBool || t instanceof ASTTString || t instanceof ASTTNil
             || t instanceof ASTTUnit || t instanceof ASTTArrow || t instanceof ASTTRef || t instanceof ASTTList
             || t instanceof ASTTUnion || t instanceof ASTTStruct || t instanceof ASTTId) {

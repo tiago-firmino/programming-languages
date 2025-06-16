@@ -13,5 +13,16 @@ public TypeBindList(HashMap<String,ASTType> ll) {
 
 public Map<String, ASTType> getMap() {
     return lbl;
+}
+
+public boolean isEmpty() {
+    return lbl.isEmpty();
+}
+
+public void add(String key, ASTType value) {
+    if (lbl.containsKey(key)) {
+        throw new IllegalArgumentException("Key " + key + " already exists in the TypeBindList.");
+    }
+    lbl.put(key, value);
 } 
 }

@@ -18,8 +18,8 @@ public class ASTBox implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType exprType = expr.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType exprType = expr.typecheck(types, names);
         return new ASTTRef(exprType);
     }
 }

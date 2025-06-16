@@ -560,10 +560,10 @@ public class Parser implements ParserConstants {
           break label_10;
         }
         jj_consume_token(COMMA);
-        n = jj_consume_token(Id);
+        n = jj_consume_token(Label);
         jj_consume_token(COLON);
         t = Type();
-                                              ll.put(n.image, t);
+                                                 ll.put(n.image, t);
       }
       break;
     default:

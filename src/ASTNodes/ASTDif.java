@@ -27,9 +27,9 @@ public class ASTDif implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        ASTType t1 = lhs.typecheck(e);
-        ASTType t2 = rhs.typecheck(e);
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType t1 = lhs.typecheck(types, names);
+        ASTType t2 = rhs.typecheck(types, names);
         if (!((t1 instanceof ASTTUnit && t2 instanceof ASTTUnit) || (t1 instanceof ASTTNil && t2 instanceof ASTTNil) ||
             t1.getClass().equals(t2.getClass()))) {
             throw new TypeCheckError("~= operator: types do not match, " + t1.toStr() + " and " + t2.toStr() + " found.");

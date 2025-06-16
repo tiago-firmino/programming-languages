@@ -78,8 +78,7 @@ let c = 0; let L = 1000; let m = box(L); let S = box(c); ( while (!m>0) { m := !
 type i2i = int->int; let sigfpe:ref<int->int> = box ( fn x:int => {x} ); let setfpe = fn h:int->int => { sigfpe := h }; let div = fn n:int,m:int => { if (m==0) { (!sigfpe) (n) } else { n / m } }; setfpe (fn v:int => { -1 }); div (2) (0);;
 
 /*higher-order store*/
-type i2i = int->int; type refi2i = ref<i2i>; let sigfpe:refi2i = box ( fn x:int => {x} ); let setfpe = fn h:i2i => { sigfpe := h };
-let div = fn n:int,m:int => { if (m==0) { (!sigfpe) (n) } else { n / m } }; setfpe (fn v:int => { -1 }); div (2) (0);;
+type i2i = int->int; type refi2i = ref<i2i>; let sigfpe:refi2i = box ( fn x:int => {x} ); let setfpe = fn h:i2i => { sigfpe := h }; let div = fn n:int,m:int => { if (m==0) { (!sigfpe) (n) } else { n / m } }; setfpe (fn v:int => { -1 }); div (2) (0);;
 
 /*landin's knot, encoding recursion through state*/
 let knot = box (fn x:int => {x}); let fact = fn n:int => { if (n==0) { 1 } else { n * ((!knot)( n - 1 ))} }; knot := fact; fact (6);;
@@ -93,16 +92,6 @@ type knott = ref<int->int>; let knot:knott = box (fn x:int => {x}); let fact = f
 /*some functions to encode mutable pairs*/
 /*now w / type defs*/
 
-type Iaccessor = ref<int> -> ref<int> -> int; type Igettype = (Iaccessor -> int)->int; type Isettype = (Iaccessor -> int) -> int -> int;
-
-let mkpair =     fn a:int,b:int => { let l = box(a); let r = box(b); fn f:Iaccessor => { f (l) (r) } }; let getfst:Igettype = fn p:Iaccessor->int => { p (fn a:ref<int>,b:ref<int> => { !a }) };
-
-let getsnd:Igettype = fn p:Iaccessor->int => { p (fn a:ref<int>,b:ref<int> => { !b })};
-
-let setfst:Isettype  = fn p:Iaccessor->int,v:int => { p (fn a:ref<int>,b:ref<int> => { a := v })};
-
-let setsnd:Isettype = fn p:Iaccessor->int,v:int => { p (fn a:ref<int>,b:ref<int> => { b := v })};
-
-let x = mkpair (1) (2); setfst (x) (10); setsnd (x) (20); (getfst (x)) + (getsnd (x));;
+type Iaccessor = ref<int> -> ref<int> -> int; type Igettype = (Iaccessor -> int)->int; type Isettype = (Iaccessor -> int) -> int -> int; let mkpair = fn a:int,b:int => { let l = box(a); let r = box(b); fn f:Iaccessor => { f (l) (r) } }; let getfst:Igettype = fn p:Iaccessor->int => { p (fn a:ref<int>,b:ref<int> => { !a }) }; let getsnd:Igettype = fn p:Iaccessor->int => { p (fn a:ref<int>,b:ref<int> => { !b })}; let setfst:Isettype  = fn p:Iaccessor->int,v:int => { p (fn a:ref<int>,b:ref<int> => { a := v })}; let setsnd:Isettype = fn p:Iaccessor->int,v:int => { p (fn a:ref<int>,b:ref<int> => { b := v })}; let x = mkpair (1) (2); setfst (x) (10); setsnd (x) (20); (getfst (x)) + (getsnd (x));;
 
 let inc = fn r:ref<int>,z:int->int => { r := z(!r + 1); !r}; let age = box (1); inc (age) (fn x:int => { x + 1 });;

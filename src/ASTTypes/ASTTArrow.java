@@ -1,5 +1,8 @@
 package ASTTypes;
 
+import Environment.*;
+import Exception.*;
+
 public class ASTTArrow implements ASTType {
     ASTType dom;
     ASTType codom;
@@ -28,6 +31,16 @@ public class ASTTArrow implements ASTType {
         }
         return false;
 
+    }
+
+    @Override
+    public ASTType unfold(Environment<ASTType> types) throws InterpreterError {
+        ASTType unfoldedDom = dom.unfold(types);
+        ASTType unfoldedCodom = codom.unfold(types);
+        if (unfoldedDom == dom && unfoldedCodom == codom) {
+            return this;
+        }
+        return new ASTTArrow(unfoldedDom, unfoldedCodom);
     }
 }
 

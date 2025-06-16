@@ -53,7 +53,30 @@ public class ASTMatch  implements ASTNode {
     }
 
     
-    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    public ASTType typecheck(Environment<ASTType> types, Environment<ASTType> names) throws TypeCheckError, InterpreterError {
+        ASTType targetType = target.typecheck(types, names);
+        ASTType elementType;
+
+        if (targetType instanceof ASTTList) {
+            elementType = ((ASTTList) targetType).getHeadType();
+        } else if (targetType instanceof ASTTUnion) {
+            throw new TypeCheckError("Union types in match not well implemented");
+        } else {
+            throw new TypeCheckError("Match expression requires a list; found: " + targetType.toStr());
+        }
+
+        ASTType nilType = nilBranch.typecheck(types, names);
+
+        Environment<ASTType> consEnv = types.beginScope();
+        consEnv.assoc(headId, elementType);
+        consEnv.assoc(tailId, new ASTTList(elementType));
+        ASTType consType = consBranch.typecheck(consEnv, names);
+
+        if (!nilType.equals(consType)) {
+            throw new TypeCheckError(String.format("Type mismatch in match cases: 'nil' has type %s, but 'cons' has type %s.",
+            nilType.toStr(), consType.toStr()));
+        }
+
+        return nilType;
     }
 }
