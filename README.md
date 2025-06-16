@@ -10,7 +10,7 @@ A Java interpreter for the L1++ language developed for the Programming Languages
 ### Hands-on Mode
 
 ```bash
-./makeit.sh
+./x++.sh
 ```
 
 - Write the L1++ expressions after the # prompt
@@ -29,10 +29,10 @@ Choose a file to run from the *tests* directory. Results are shown after each te
   - testsL1++.md
 
 ```bash
-./makeit.sh <filename>
+./x++.sh <filename>
 ```
 
-Example tests should be ran in Hands-on mode by copying them to the terminal after ./makeit.sh execution.
+Example tests should be ran in Hands-on mode by copying them to the terminal after ./x++.sh execution.
 
 ## Limitations
 

@@ -8,4 +8,8 @@ public class ASTTString implements ASTType {
         return "string";
     }
 
+    public boolean equals(Object obj) {
+        return obj instanceof ASTTString;
+    }
+
 }

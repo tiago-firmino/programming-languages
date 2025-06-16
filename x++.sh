@@ -7,7 +7,7 @@ rm -f src/Parser/*.java
 
 echo ">>> compiling ParserL1"
 cd src/Parser
-javacc ParserL1.jj
+javacc ParserXpp.jj
 cd ../..
 javac -d run -cp src $(find src -name "*.java")
 
@@ -15,12 +15,12 @@ cd tests
 
 if [[ $# -eq 0 ]]; then
     echo ">>> No test file provided; launching REPL"
-    java -cp ../run L1int
+    java -cp ../run Xppint
     exit 0
 fi
 
 if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 [<tests.md>]"
+    echo "Usage: $0 [<tests.md> | <tests.xpp>]"
     exit 1
 fi
 
@@ -44,8 +44,8 @@ for expr in "${tests[@]}"; do
   echo
   echo ">>> Test: $expr"
   echo "$expr" \
-    | java -cp ../run L1int \
-    | sed -e '/^L1 interpreter PL MEIC/d' \
+    | java -cp ../run Xppint \
+    | sed -e '/^X++ interpreter PL MEIC/d' \
           -e '/^# $/d' \
           -e 's/^# //'
 done

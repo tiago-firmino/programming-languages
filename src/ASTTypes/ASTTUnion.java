@@ -20,4 +20,10 @@ public class ASTTUnion implements ASTType {
         sb.append("]");
         return sb.toString();
     }
+
+    public boolean equals(Object obj) {
+        // TODO
+        return false;
+    }
+
 }

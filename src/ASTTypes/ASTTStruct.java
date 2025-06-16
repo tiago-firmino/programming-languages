@@ -20,4 +20,10 @@ public class ASTTStruct implements ASTType {
         return sb.toString();
     }
 
+    public boolean equals(Object obj) {
+        //TODO
+        return false;
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package ASTNodes;
 
+import ASTTypes.*;
 import Environment.*;
 import IValues.*;
 import Exception.*;
@@ -23,5 +24,11 @@ public class ASTDif implements ASTNode {
         } else {
             throw new InterpreterError("~= operator: integer or boolean expected, " + leftValue + " and " + rightValue + " found.");
         }
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

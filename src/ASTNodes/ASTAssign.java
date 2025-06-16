@@ -1,5 +1,6 @@
 package ASTNodes;
 
+import ASTTypes.*;
 import Environment.*;
 import IValues.*;
 import Exception.*;
@@ -24,6 +25,12 @@ public class ASTAssign implements ASTNode {
             ((VCell) lVal).setValue(rVal);
             return rVal;
         }
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
     
 }

@@ -1,6 +1,7 @@
 package ASTNodes;
 
 import IValues.*;
+import ASTTypes.*;
 import Environment.*;
 import Exception.*;
 
@@ -20,5 +21,11 @@ public class ASTFun implements ASTNode {
 
     public void setBody(ASTNode b) {
         this.body = b;
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }   
 }

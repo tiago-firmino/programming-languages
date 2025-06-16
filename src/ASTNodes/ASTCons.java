@@ -2,6 +2,7 @@ package ASTNodes;
 
 import IValues.*;
 import Exception.*;
+import ASTTypes.*;
 import Environment.*;
 
 public class ASTCons implements ASTNode {
@@ -29,5 +30,11 @@ public class ASTCons implements ASTNode {
             return new VCons(headValue, tailValue);
 
         }
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

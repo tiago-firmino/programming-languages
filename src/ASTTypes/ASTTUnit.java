@@ -8,4 +8,8 @@ public class ASTTUnit implements ASTType {
     public String toStr() {
         return "()";
     }
+    public boolean equals(Object obj) {
+        return obj instanceof ASTTUnit;
+    }
+
 }

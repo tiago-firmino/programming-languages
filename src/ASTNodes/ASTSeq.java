@@ -1,6 +1,7 @@
 package ASTNodes;
 
 import IValues.*;
+import ASTTypes.*;
 import Environment.*;
 import Exception.*;
 
@@ -19,5 +20,11 @@ public class ASTSeq implements ASTNode {
 
     public String toStr() {
         return "(" + first + "; " + second + ")";
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

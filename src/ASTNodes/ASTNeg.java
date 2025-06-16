@@ -1,6 +1,7 @@
 package ASTNodes;
 
 import IValues.*;
+import ASTTypes.*;
 import Environment.*;
 import Exception.*;
 
@@ -19,6 +20,12 @@ public class ASTNeg implements ASTNode {
 		} else {
 			throw new InterpreterError("illegal types to neg operator");
 		}
+	}
+
+	@Override
+	public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
 	}
 
 

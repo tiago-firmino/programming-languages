@@ -2,13 +2,13 @@ import ASTNodes.*;
 import Environment.*;
 import IValues.*;
 
-public class L1int {
+public class Xppint {
 
 	public static void main(String args[]) {
 		Parser parser = new Parser(System.in);
 		ASTNode exp;
 
-		System.out.println("L1 interpreter PL MEIC 2024/25 (v0.0)\n");
+		System.out.println("X++ interpreter PL MEIC 2024/25\n");
 
 		while (true) {
 			try {

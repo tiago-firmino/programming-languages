@@ -2,6 +2,7 @@ package ASTNodes;
 
 import IValues.*;
 import Exception.*;
+import ASTTypes.*;
 import Environment.*;
 
 public class ASTMatch  implements ASTNode {
@@ -49,5 +50,11 @@ public class ASTMatch  implements ASTNode {
         } else {
             throw new InterpreterError("invalid target value: " + targetVal);
         }
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

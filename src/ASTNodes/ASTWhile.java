@@ -1,6 +1,7 @@
 package ASTNodes;
 
 import IValues.*;
+import ASTTypes.*;
 import Environment.*;
 import Exception.*;
 
@@ -28,5 +29,11 @@ public class ASTWhile implements ASTNode {
 
         }
         return condVal;
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

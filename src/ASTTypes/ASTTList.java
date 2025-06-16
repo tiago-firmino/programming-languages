@@ -11,5 +11,11 @@ public class ASTTList implements ASTType {
     public String toStr() {
         return "list<"+elt.toStr()+">";
     }
+
+    public boolean equals(Object obj) {
+        //TODO
+        return false;
+    }
+
     
 }

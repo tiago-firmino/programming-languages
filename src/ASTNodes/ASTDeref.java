@@ -2,8 +2,10 @@ package ASTNodes;
 
 import IValues.IValue;
 import IValues.VCell;
+import ASTTypes.*;
 import Environment.Environment;
 import Exception.InterpreterError;
+import Exception.TypeCheckError;
 
 public class ASTDeref implements ASTNode {
     private final ASTNode expr;
@@ -18,5 +20,11 @@ public class ASTDeref implements ASTNode {
             throw new InterpreterError("deref: cell or ref expected, found " + v); 
         else
             return ((VCell) v).getval();
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

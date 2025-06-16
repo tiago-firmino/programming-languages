@@ -7,24 +7,14 @@ e ::= fn x : tau => e[x]
  | x
  | e e
  | 0		
-
-/* add these constructors
-
  | <e,e>
  | fst e
  | snd e
 
-*/
-
 tau ::= unit
  | tau -> tau 
  | unit
-
-/* add
-
- | tau * tau 
-
-*/
+ | tau * tau
 
 Gamma ::= *
       |   Gamma, x : tau

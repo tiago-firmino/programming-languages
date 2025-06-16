@@ -1,5 +1,6 @@
 package ASTNodes;
 import IValues.*;
+import ASTTypes.*;
 import Environment.*;
 import Exception.*;
 
@@ -20,5 +21,11 @@ public class ASTAnd implements ASTNode {
         } else {
             throw new InterpreterError("illegal types for && operator");
         }
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }    
 }

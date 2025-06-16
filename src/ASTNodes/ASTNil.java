@@ -2,6 +2,7 @@ package ASTNodes;
 
 import IValues.*;
 import Exception.*;
+import ASTTypes.*;
 import Environment.*;
 
 public class ASTNil implements ASTNode {
@@ -11,5 +12,11 @@ public class ASTNil implements ASTNode {
     }
 
     public ASTNil() {
+    }
+
+    @Override
+    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

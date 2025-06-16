@@ -115,7 +115,9 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int Id = 57;
   /** RegularExpression Id. */
-  int Num = 58;
+  int Label = 58;
+  /** RegularExpression Id. */
+  int Num = 59;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -180,6 +182,7 @@ public interface ParserConstants {
     "\"struct\"",
     "<String>",
     "<Id>",
+    "<Label>",
     "<Num>",
   };
 

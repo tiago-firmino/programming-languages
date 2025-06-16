@@ -9,5 +9,7 @@ public class ASTTBool implements ASTType {
         return "bool";
     }
 
-
+    public boolean equals(Object obj) {
+        return obj instanceof ASTTBool;
+    }
 }
