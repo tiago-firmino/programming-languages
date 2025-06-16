@@ -22,9 +22,13 @@ public class ASTGTEQ implements ASTNode {
             throw new InterpreterError("Invalid types for comparison: " + leftValue.toStr() + " and " + rightValue.toStr());
         }
     }
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType t1 = left.typecheck(e);
+        ASTType t2 = right.typecheck(e);
+        if (!(t1 instanceof ASTTInt) || !(t2 instanceof ASTTInt)) {
+            throw new TypeCheckError(">= operator: types do not match, " + t1.toStr() + " and " + t2.toStr() + " found.");
+        }
+        return new ASTTBool();
     }
 }

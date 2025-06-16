@@ -22,9 +22,10 @@ public class ASTSeq implements ASTNode {
         return "(" + first + "; " + second + ")";
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType firstType = first.typecheck(e);
+        ASTType secondType = second.typecheck(e);
+        return secondType;
     }
 }

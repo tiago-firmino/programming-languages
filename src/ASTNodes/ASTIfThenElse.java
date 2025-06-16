@@ -27,9 +27,16 @@ public class ASTIfThenElse implements ASTNode {
         }
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType condtyType = cond.typecheck(e);
+        if (!(condtyType instanceof ASTTBool)) {
+            throw new TypeCheckError("Condition of if-then-else must be a boolean, found: " + condtyType);
+        }
+        ASTType thenType = thenBr.typecheck(e);
+        ASTType elseType = elseBr.typecheck(e);
+        if (!thenType.equals(elseType)) {
+            throw new TypeCheckError("Branches of if-then-else must have the same type, found: " + thenType + " and " + elseType);
+        }
+        return thenType;
     }
 }

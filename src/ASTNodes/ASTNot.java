@@ -22,9 +22,12 @@ public class ASTNot implements ASTNode {
         }
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType t = expr.typecheck(e);
+        if (t instanceof ASTTBool)
+            return new ASTTBool();
+        else
+            throw new TypeCheckError("Type error in NOT operation: expected boolean, found " + t);
     }
 }

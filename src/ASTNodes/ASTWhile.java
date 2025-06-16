@@ -31,9 +31,13 @@ public class ASTWhile implements ASTNode {
         return condVal;
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType condType = condition.typecheck(e);
+        if (!(condType instanceof ASTTBool)) {
+            throw new TypeCheckError("Condition of if-then-else must be a boolean, found: " + condType.toStr());
+        }
+        ASTType bodyType = body.typecheck(e);
+        return bodyType;
     }
 }

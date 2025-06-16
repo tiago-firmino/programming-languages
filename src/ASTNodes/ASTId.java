@@ -16,10 +16,13 @@ public class ASTId implements ASTNode {
         return env.find(id);
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType t = e.find(id);
+        if (t == null) {
+            throw new TypeCheckError("Identifier '" + id + "' not found in environment");
+        }
+        return t;
     }
 
 }

@@ -26,7 +26,7 @@ public class ASTFieldSelect implements ASTNode {
     }
 
 
-    @Override
+    
     public IValue eval(Environment<IValue> env) throws InterpreterError {
         IValue recVal = record.eval(env);
         if (!(recVal instanceof VCell)) {
@@ -40,9 +40,8 @@ public class ASTFieldSelect implements ASTNode {
         return null; // Placeholder for actual field access logic
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
         throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

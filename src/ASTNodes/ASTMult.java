@@ -26,10 +26,18 @@ public class ASTMult implements ASTNode {
 		}
 	}
 
-	@Override
-	public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+	public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+		ASTType t1 = lhs.typecheck(e);
+		if (t1 instanceof ASTTInt) {
+			ASTType t2 = rhs.typecheck(e);
+			if (t2 instanceof ASTTInt) {
+				return t1;
+			} else {
+				throw new TypeCheckError("illegal type for * operator" + t2.toStr() + ", expected int");
+			}
+		} else {
+			throw new TypeCheckError("illegal type for * operator" + t1.toStr() + ", expected int");
+		}
 	}
 
 

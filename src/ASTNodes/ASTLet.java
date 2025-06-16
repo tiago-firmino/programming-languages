@@ -1,6 +1,6 @@
 package ASTNodes;
 
-import java.util.List;
+import java.util.*;
 
 import ASTTypes.*;
 import IValues.*;
@@ -27,10 +27,24 @@ public class ASTLet implements ASTNode {
 		return body.eval(env);
 	}
 
-	@Override
-	public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+	
+	public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+		Environment<ASTType> env = e.beginScope();
+		Set<String> declareds = new HashSet<>();
+		for (Bind b : decls) {
+			String id = b.getId();
+			if (declareds.contains(id)) {
+				throw new TypeCheckError("Variable " + id + " already declared in this scope.");
+			}
+			declareds.add(id);
+		}
+		for (Bind b : decls) {
+			String id = b.getId();
+			ASTNode exp = b.getExp();
+			env.assoc(id, exp.typecheck(env));		
+		}
+
+		return body.typecheck(env);
 	}
 
 }

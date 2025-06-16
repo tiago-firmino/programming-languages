@@ -32,9 +32,8 @@ public class ASTCons implements ASTNode {
         }
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
         throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
     }
 }

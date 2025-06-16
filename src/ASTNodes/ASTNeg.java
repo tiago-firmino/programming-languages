@@ -22,10 +22,13 @@ public class ASTNeg implements ASTNode {
 		}
 	}
 
-	@Override
-	public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+	
+	public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+		ASTType t = exp.typecheck(e);
+		if (!(t instanceof ASTTInt)) {
+			throw new TypeCheckError("neg operator: integer expected, " + t + " found.");
+		}
+		return new ASTTInt();		
 	}
 
 

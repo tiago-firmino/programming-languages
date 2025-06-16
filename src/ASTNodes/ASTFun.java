@@ -8,6 +8,7 @@ import Exception.*;
 public class ASTFun implements ASTNode {
     String id;
     ASTNode body;
+    ASTType paramType;
     
     public ASTFun(String id, ASTNode b) {
         this.id = id;
@@ -23,9 +24,11 @@ public class ASTFun implements ASTNode {
         this.body = b;
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        Environment<ASTType> newEnv;
+        newEnv = e.beginScope();
+        newEnv.assoc(id, paramType);
+        ASTType bodyType = body.typecheck(newEnv);
+        return new ASTTArrow(paramType, bodyType);
     }   
 }

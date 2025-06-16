@@ -23,9 +23,13 @@ public class ASTAnd implements ASTNode {
         }
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType t1 = lhs.typecheck(e);
+        if (!(t1 instanceof ASTTBool))
+            throw new TypeCheckError("left operand of && must be a boolean");
+        ASTType t2 = rhs.typecheck(e);
+        if (!(t2 instanceof ASTTBool))
+            throw new TypeCheckError("right operand of && must be a boolean");
+        return new ASTTBool();
     }    
 }

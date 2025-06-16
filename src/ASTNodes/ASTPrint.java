@@ -27,9 +27,15 @@ public class ASTPrint implements ASTNode {
         }
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType t = expr.typecheck(e);
+        if (t instanceof ASTTInt || t instanceof ASTTBool || t instanceof ASTTString || t instanceof ASTTNil
+            || t instanceof ASTTUnit || t instanceof ASTTArrow || t instanceof ASTTRef || t instanceof ASTTList
+            || t instanceof ASTTUnion || t instanceof ASTTStruct || t instanceof ASTTId) {
+            return t;
+        } else {
+            throw new TypeCheckError("Type error in print operation: type not found " + t.toStr());
+        }
     }
 }

@@ -49,11 +49,33 @@ e2 value
 ---------------------------------- r-app
 (fn x : tau => e[x]) e2 -> e[e2]
 
-/* 
+e1 -> e1'
+------------------- c-pair-l
+<e1, e2> -> <e1', e2>
 
-Add small step rules for the pairs constructs
+e1 value
+e2 -> e2'
+------------------- c-pair-r
+<e1, e2> -> <e1, e2'>
 
-*/
+e1 value
+e2 value
+------------------- r-fst
+fst <e1, e2> -> e1
+
+e1 value
+e2 value
+------------------- r-snd
+snd <e1, e2> -> e2
+
+e -> e'
+------------------- c-fst
+fst e -> fst e'
+
+e -> e'
+------------------- c-snd
+snd e -> snd e'
+
 
 judgment stype: tau <: tau'
 
@@ -82,16 +104,80 @@ Gamma |- e2 : tau1
 ------------------------- t-app
 Gamma |- e1 e2 : tau
 
-/*
+Gamma |- e1 : tau1
+Gamma |- e2 : tau2
+----------------------------- t-pair
+Gamma |- <e1, e2> : tau1 * tau2
 
-Add the type rules for the pairs constructs
+Gamma |- e : tau1 * tau2
+----------------------------- t-fst
+Gamma |- fst e : tau1
 
-*/
+Gamma |- e : tau1 * tau2
+----------------------------- t-snd
+Gamma |- snd e : tau2
 
 
 theorem preservation: forall dt: * |- e : tau forall ds: e -> e' exists * |- e' : tau.
 
 dt' : * |- e' : tau by induction on ds:
+    case rule
+        _: e0 -> e1
+        --------------- c-pair-l
+        _: (< e0, e2 >) -> (< e1, e2 >)
+    is
+        dt' : * |- e1 : tau1 by induction hypothesis on d3, d1
+        dt'' : * |- <e1, e2> : tau1 * tau2 by rule t-pair on dt', d4
+    end case
+
+    case rule
+        _: e0 value
+        _: e1 -> e2
+        --------------- c-pair-r
+        _: (< e0, e1 >) -> (< e0, e2 >)
+    is
+        dt' : * |- e2 : tau2 by induction hypothesis on d4, d2
+        dt'' : * |- <e0, e2> : tau1 * tau2 by rule t-pair on d3, dt'
+    end case
+
+    case rule
+        _: e' value
+        _: e0 value
+        --------------- r-fst
+        _: (fst (< e', e0 >)) -> e'
+    is
+        dt' : * |- <e', e0> : tau1 * tau2 by inversion on dt
+        dt'' : * |- e' : tau1 by inversion on dt'
+    end case
+
+    case rule
+        _: e0 value
+        _: e' value
+        --------------- r-snd
+        _: (snd (< e0, e' >)) -> e'
+    is
+        dt' : * |- <e0, e'> : tau1 * tau2 by inversion on dt
+        dt'' : * |- e' : tau2 by inversion on dt'
+    end case
+
+    case rule
+        _: e0 -> e1
+        --------------- c-fst
+        _: (fst e0) -> (fst e1)
+    is
+        dt' : * |- e1 : tau1 * tau2 by induction hypothesis on d3, d1
+        dt'' : * |- fst e1 : tau1 by rule t-fst on dt'
+    end case
+
+    case rule
+        _: e0 -> e1
+        --------------- c-snd
+        _: (snd e0) -> (snd e1)
+    is
+        dt' : * |- e1 : tau1 * tau2 by induction hypothesis on d3, d1
+        dt'' : * |- snd e1 : tau2 by rule t-snd on dt'
+    end case
+
 
 case rule
 

@@ -29,10 +29,21 @@ public class ASTApp implements ASTNode {
         return appValue;
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType t1 = func.typecheck(e);
+        if (!(t1 instanceof ASTTArrow)) {
+            throw new TypeCheckError("app: function type expected, found " + t1.toStr());
+        }
+        ASTType t2 = arg.typecheck(e);
+        ASTType dom = ((ASTTArrow) t1).getDom();
+
+        if (!dom.equals(t2)) {
+            throw new TypeCheckError("app: argument type " + t2.toStr() + " does not match function domain " + dom.toStr());
+        }
+        
+        return ((ASTTArrow) t1).getCodom();
+
     }
 
     

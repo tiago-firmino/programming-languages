@@ -26,9 +26,14 @@ public class ASTDif implements ASTNode {
         }
     }
 
-    @Override
-    public ASTType typecheck(Environment<ASTType> typeEnv) throws TypeCheckError, InterpreterError {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+    
+    public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
+        ASTType t1 = lhs.typecheck(e);
+        ASTType t2 = rhs.typecheck(e);
+        if (!((t1 instanceof ASTTUnit && t2 instanceof ASTTUnit) || (t1 instanceof ASTTNil && t2 instanceof ASTTNil) ||
+            t1.getClass().equals(t2.getClass()))) {
+            throw new TypeCheckError("~= operator: types do not match, " + t1.toStr() + " and " + t2.toStr() + " found.");
+        }
+        return new ASTTBool();
     }
 }
