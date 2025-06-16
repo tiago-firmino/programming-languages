@@ -140,14 +140,14 @@ ASTNode Start():
 }
 
 ASTNode Let() :
-{ Token n; ASTNode t, e1, e2; ASTType t1; List<Bind> decls; HashMap<String,ASTType> lbl; }
+{ Token n; ASTNode t, e1, e2; ASTType t1 = null; List<Bind> decls; HashMap<String,ASTType> lbl; }
 {
     (
         t = Seq()
         { return t; }
     |
         { decls = new ArrayList<Bind>(); }
-        ( <LET> n=<Id> <EQUAL> e1 = BA() <SEMIC> { decls.add(new Bind(n.image, e1)); } )+
+        ( <LET> n=<Id> (<COLON> t1 = Type())? <EQUAL> e1 = BA() <SEMIC> { decls.add(new Bind(n.image, e1, t1)); } )+
         e2 = Seq()
         { return new ASTLet(decls, e2); }
     |
@@ -262,13 +262,13 @@ ASTNode Fun() :
 {
     <FN> n = <Id> <COLON> at = Type()
     {
-      t = new ASTFun(n.image, null);
+      t = new ASTFun(n.image, null, at);
       e1 = t;
     }
     (
       <COMMA> n = <Id> <COLON> at = Type()
       {
-        e2 = new ASTFun(n.image, null);
+        e2 = new ASTFun(n.image, null, at);
         ((ASTFun) e1).setBody(e2);
         e1 = e2;
       }
@@ -342,6 +342,7 @@ ASTType TypeF() :
     | <LIST> <LT> t = Type() <GT> { t = new ASTTList(t); }
     | <STRUCT> <LBRA> ll = LabelList() <RBRA> { t = new ASTTStruct(ll); }
     | <UNION>  <LBRA> ll = LabelList() <RBRA> { t = new ASTTUnion(ll); }
+    | <LPAR> t = Type() <RPAR>
     )
     { return t; }
 }

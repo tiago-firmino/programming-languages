@@ -20,8 +20,4 @@ public class VBool implements IValue{
 	public String toString() {
         return toStr();
     }
-
-    VBool(VBool v0) {
-        v = v0.v;
-    }
 }

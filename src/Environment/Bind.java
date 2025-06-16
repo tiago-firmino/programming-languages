@@ -1,13 +1,16 @@
 package Environment;
 import ASTNodes.ASTNode;
+import ASTTypes.ASTType;
 
 public class Bind {
 	private final String id;
 	private final ASTNode exp;
+	private final ASTType type;
 
-	public Bind(String _id, ASTNode _exp) {
+	public Bind(String _id, ASTNode _exp, ASTType _type) {
 		this.id = _id;
 		this.exp = _exp;
+		this.type = _type;
 	}
 
 	public String getId() {
@@ -16,5 +19,9 @@ public class Bind {
 
 	public ASTNode getExp() {
 		return exp;
+	}
+
+	public ASTType getType() {
+		return type;
 	}
 }

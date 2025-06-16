@@ -29,7 +29,5 @@ public class ASTTArrow implements ASTType {
         return false;
 
     }
-
-    
 }
 

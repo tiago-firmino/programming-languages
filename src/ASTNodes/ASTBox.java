@@ -19,6 +19,7 @@ public class ASTBox implements ASTNode {
 
     
     public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+        ASTType exprType = expr.typecheck(e);
+        return new ASTTRef(exprType);
     }
 }

@@ -20,8 +20,4 @@ public class VInt implements IValue {
 	public String toString() {
         return toStr();
     }
-
-	VInt(VInt v0) {
-		v = v0.v;
-	}
 }

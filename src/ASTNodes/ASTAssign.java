@@ -29,7 +29,19 @@ public class ASTAssign implements ASTNode {
 
     
     public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+        ASTType lValueType = lValue.typecheck(e);
+        if (!(lValueType instanceof ASTTRef)) {
+            throw new TypeCheckError("Assign: lValue must be a reference type, found " + lValueType.toStr());
+        }
+        
+        ASTType rValueType = rValue.typecheck(e);
+        ASTTRef refType = (ASTTRef) lValueType;
+        
+        if (!rValueType.equals(refType.getType())) {
+            throw new TypeCheckError("Assign: type mismatch, expected " + refType.getType().toStr() + ", found " + rValueType.toStr());
+        }
+        
+        return refType.getType();
     }
     
 }

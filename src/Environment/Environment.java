@@ -43,7 +43,6 @@ public class Environment<E> { // Bind <String, Ivalue>
 	}
 
 	public E find(String id) throws InterpreterError {
-
 		if (bindings.containsKey(id)) {
 			return bindings.get(id);
 		} else if (anc != null) {

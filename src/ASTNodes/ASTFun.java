@@ -10,9 +10,10 @@ public class ASTFun implements ASTNode {
     ASTNode body;
     ASTType paramType;
     
-    public ASTFun(String id, ASTNode b) {
+    public ASTFun(String id, ASTNode b, ASTType paramType) {
         this.id = id;
         this.body = b;
+        this.paramType = paramType;
     }
 
     public IValue eval(Environment<IValue> env) throws InterpreterError {

@@ -24,6 +24,9 @@ public class ASTDeref implements ASTNode {
 
     
     public ASTType typecheck(Environment<ASTType> e) throws TypeCheckError, InterpreterError {
-        throw new UnsupportedOperationException("Unimplemented method 'typecheck'");
+        ASTType exprType = expr.typecheck(e);
+        if (!(exprType instanceof ASTTRef))
+            throw new TypeCheckError("deref: ref expected, found " + exprType.toStr());
+        return ((ASTTRef) exprType).getType();
     }
 }

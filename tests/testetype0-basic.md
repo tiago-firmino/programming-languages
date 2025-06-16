@@ -40,13 +40,9 @@ let x = 1; let f = fn y:int => { x + y }; ( let x = 4; (x + f (2)) );;
 let x=1 ; let f = fn y:int => { y+x } ; let g = fn x:int => { x+f(x) }; g(2);;
 
 /* fails */
-let f = fn g:int->bool,z:int => { g (z) };
-f (fn z:int => { z*2 }) (7)
-;;
+let f = fn g:int->bool,z:int => { g (z) }; f (fn z:int => { z*2 }) (7);;
 
-let f = fn g:int->int,z:int => { g (z) };
-f (fn z:int => { z*2 }) (7)
-;;
+let f = fn g:int->int,z:int => { g (z) }; f (fn z:int => { z*2 }) (7);;
 
 let x:int = 2; x;;
 
@@ -57,7 +53,9 @@ let x=1 ; let f = fn y:int => { let k = x*2; y+x*k }; let g = fn x:int, u:int->i
 
 let comp = fn f:int->int, g:int->int => { fn x:int => { f (g (x)) } }; let inc = fn x:int => { x + 1}; let dup = fn x:int => { 2 * x}; let c2 = comp (inc) (dup); c2 (99);;
 
-let fact:int->int = fn n:int => { if (n==0) { 1 } else { n*(fact (n-1))} }; fact (5);; let fact:int->int = ( let one = 1; fn n:int => { if (n==0) { one } else { n*(fact (n-1))} }); fact (5);;
+let fact:int->int = fn n:int => { if (n==0) { 1 } else { n*(fact (n-1))} }; fact (5);;
+
+let fact:int->int = ( let one = 1; fn n:int => { if (n==0) { one } else { n*(fact (n-1))} }); fact (5);;
 
 let reduce: (int -> int -> int) -> int -> int -> int = fn g:int->int->int, b:int, k:int => { if (k == 0) { b } else { g (k) (reduce (g) (b) (k-1) ) } }; let fact = reduce (fn n:int, p:int => { n*p }) (1) ; fact (10);;
 

@@ -17,9 +17,8 @@ public class ASTLet implements ASTNode {
 	}
 	
 	public IValue eval(Environment<IValue> e) throws InterpreterError {
-		Environment<IValue> env = e;
+		Environment<IValue> env = e.beginScope();
 		for (Bind b : decls) {
-			env = env.beginScope();
 			String id = b.getId();
 			ASTNode exp = b.getExp();
 		  	env.assoc(id, exp.eval(env));
@@ -41,7 +40,23 @@ public class ASTLet implements ASTNode {
 		for (Bind b : decls) {
 			String id = b.getId();
 			ASTNode exp = b.getExp();
-			env.assoc(id, exp.typecheck(env));		
+			if (b.getType() != null) {
+				if (exp instanceof ASTLet || exp instanceof ASTFun) {
+					env.assoc(id, b.getType());
+					ASTType expType = exp.typecheck(env);
+					if (!expType.equals(b.getType())) {
+						throw new TypeCheckError("Type mismatch for variable " + id + ": expected " + expType.toStr() + ", found " + b.getType().toStr());
+					}
+				} else {
+					ASTType expType = exp.typecheck(env);
+					if (!expType.equals(b.getType())) {
+						throw new TypeCheckError("Type mismatch for variable " + id + ": expected " + expType.toStr() + ", found " + b.getType().toStr());
+					}
+					env.assoc(id, b.getType());
+				}
+			} else {
+				env.assoc(id, exp.typecheck(env));		
+			}
 		}
 
 		return body.typecheck(env);

@@ -11,12 +11,16 @@ public class ASTTRef implements ASTType {
     public ASTType getType() {
         return type;
     }
+
     public String toStr() {
         return "ref<"+type.toStr()+">";
     }
 
     public boolean equals(Object obj) {
-        //TODO
+        if (obj instanceof ASTTRef) {
+            ASTTRef other = (ASTTRef) obj;
+            return this.type.equals(other.type);
+        }
         return false;
     }
 }
